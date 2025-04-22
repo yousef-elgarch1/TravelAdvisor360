@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    android:background="@color/gray_light"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!-- Bot's message bubble -->
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:background="@drawable/chat_bot_bubble"
+            android:padding="10dp"
+            android:layout_gravity="start"/>
+
+        <!-- Time of message -->
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="start"
+            android:layout_marginTop="4dp"
+            android:text="12:00 AM"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

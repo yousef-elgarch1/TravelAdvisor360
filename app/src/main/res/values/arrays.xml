@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="passenger_numbers">
+        <item>1 Passenger</item>
+        <item>2 Passengers</item>
+        <item>3 Passengers</item>
+        <item>4 Passengers</item>
+        <item>5 Passengers</item>
+        <item>6 Passengers</item>
+        <item>7 Passengers</item>
+        <item>8 Passengers</item>
+        <item>9 Passengers</item>
+    </string-array>
+
+    <string-array name="flight_classes">
+        <item>Economy</item>
+        <item>Premium Economy</item>
+        <item>Business</item>
+        <item>First Class</item>
+    </string-array>
+
+        <array name="initial_slider_values">
+            <item>0</item>
+            <item>1000</item>
+        </array>
+
+</resources>

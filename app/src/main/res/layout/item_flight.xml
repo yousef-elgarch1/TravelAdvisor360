@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_flight"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/iv_airline_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/circle_background"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_flight"
+            android:contentDescription="Airline logo" />
+
+        <TextView
+            android:id="@+id/tv_airline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/primary_text"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/iv_airline_logo"
+            app:layout_constraintTop_toTopOf="@id/iv_airline_logo"
+            app:layout_constraintBottom_toBottomOf="@id/iv_airline_logo"
+            tools:text="Air France" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_airline_logo" />
+
+        <TextView
+            android:id="@+id/tv_departure_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/primary_text"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:text="08:30" />
+
+        <TextView
+            android:id="@+id/tv_departure_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_departure_time"
+            tools:text="New York" />
+
+        <ImageView
+            android:id="@+id/iv_flight_arrow"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_right"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@id/tv_departure_time"
+            app:layout_constraintEnd_toStartOf="@id/tv_arrival_time"
+            app:layout_constraintTop_toTopOf="@id/tv_departure_time"
+            app:layout_constraintBottom_toBottomOf="@id/tv_departure_time"
+            android:contentDescription="Flight path"
+            app:tint="@color/secondary_text" />
+
+        <TextView
+            android:id="@+id/tv_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintTop_toBottomOf="@id/iv_flight_arrow"
+            app:layout_constraintStart_toStartOf="@id/iv_flight_arrow"
+            app:layout_constraintEnd_toEndOf="@id/iv_flight_arrow"
+            tools:text="8h 0m" />
+
+        <TextView
+            android:id="@+id/tv_arrival_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/primary_text"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:text="16:30" />
+
+        <TextView
+            android:id="@+id/tv_arrival_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_arrival_time"
+            tools:text="Paris" />
+
+        <TextView
+            android:id="@+id/tv_direct_flight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textColor="@color/secondary_text"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_departure_city"
+            tools:text="Direct" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_direct_flight" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider2"
+            tools:text="$320" />
+
+        <TextView
+            android:id="@+id/tv_per_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="per person"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:cornerRadius="8dp"
+            app:backgroundTint="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_price"
+            app:layout_constraintBottom_toBottomOf="@id/tv_per_person" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

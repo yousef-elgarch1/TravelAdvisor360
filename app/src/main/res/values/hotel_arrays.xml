@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="guest_numbers">
+        <item>1 Guest</item>
+        <item>2 Guests</item>
+        <item>3 Guests</item>
+        <item>4 Guests</item>
+        <item>5 Guests</item>
+        <item>6 Guests</item>
+        <item>7 Guests</item>
+        <item>8 Guests</item>
+        <item>9 Guests</item>
+        <item>10+ Guests</item>
+    </string-array>
+
+    <string-array name="room_numbers">
+        <item>1 Room</item>
+        <item>2 Rooms</item>
+        <item>3 Rooms</item>
+        <item>4 Rooms</item>
+        <item>5 Rooms</item>
+        <item>6+ Rooms</item>
+    </string-array>
+
+
+</resources>

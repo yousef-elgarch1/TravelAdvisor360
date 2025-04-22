@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/navigation_destinations"
+        android:icon="@drawable/ic_destination"
+        android:title="@string/destinations" />
+
+    <item
+        android:id="@+id/navigation_itineraries"
+        android:icon="@drawable/ic_itinerary"
+        android:title="@string/itineraries" />
+
+    <item
+        android:id="@+id/navigation_experiences"
+        android:icon="@drawable/ic_experience"
+        android:title="@string/experiences" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/my_profile" />
+</menu>

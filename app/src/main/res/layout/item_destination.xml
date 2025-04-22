@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_destination"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_destination"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/placeholder_image" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/gradient_overlay"
+            app:layout_constraintBottom_toBottomOf="@id/iv_destination"
+            app:layout_constraintEnd_toEndOf="@id/iv_destination"
+            app:layout_constraintStart_toStartOf="@id/iv_destination"
+            app:layout_constraintTop_toTopOf="@id/iv_destination" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_destination"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Paris" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_destination">
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="France" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="4.5"
+                android:stepSize="0.1"
+                android:progressTint="@color/rating_active"
+                android:progressBackgroundTint="@color/rating_inactive"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_location" />
+
+            <TextView
+                android:id="@+id/tv_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/primary_text"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/rating_bar"
+                app:layout_constraintStart_toEndOf="@id/rating_bar"
+                app:layout_constraintTop_toTopOf="@id/rating_bar"
+                tools:text="4.5" />
+
+            <TextView
+                android:id="@+id/tv_reviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/secondary_text"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/rating_bar"
+                app:layout_constraintStart_toEndOf="@id/tv_rating"
+                app:layout_constraintTop_toTopOf="@id/rating_bar"
+                tools:text="(1.2k reviews)" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins"
+                android:maxLines="2"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rating_bar"
+                tools:text="The City of Light offers iconic landmarks, world-class cuisine, and romantic ambiance." />
+
+            <LinearLayout
+                android:id="@+id/tags_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

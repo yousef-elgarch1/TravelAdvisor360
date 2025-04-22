@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Hero Section with Background Image -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/hero_section"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="@drawable/hero_background"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/semi_transparent" />
+
+            <TextView
+                android:id="@+id/hero_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="100dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/discover_perfect_journey"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/hero_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/hero_subtitle"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/hero_title"
+                app:layout_constraintTop_toBottomOf="@id/hero_title" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_start_planning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:text="@string/start_planning"
+                android:textAllCaps="false"
+                app:cornerRadius="8dp"
+                app:layout_constraintStart_toStartOf="@id/hero_title"
+                app:layout_constraintTop_toBottomOf="@id/hero_subtitle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_explore_destinations"
+                style="@style/Widget.TravelPlanner360.Button.Outlined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/explore_destinations"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@id/btn_start_planning"
+                app:layout_constraintTop_toTopOf="@id/btn_start_planning" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Search Form -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/search_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="-60dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/hero_section">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/search_tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabIndicatorColor="@color/accent"
+                    app:tabSelectedTextColor="@color/primary"
+                    app:tabTextColor="@color/secondary_text"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/destination" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dates" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/travelers" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+                <TextView
+                    android:id="@+id/tv_search_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/where_do_you_want_to_go"
+                    android:textSize="14sp"
+                    android:textColor="@color/secondary_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/search_tabs" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/search_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:startIconDrawable="@drawable/ic_location"
+                    app:layout_constraintTop_toBottomOf="@id/tv_search_label">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/search_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/search_destinations"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/search"
+                    android:textAllCaps="false"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/ic_search"
+                    app:iconGravity="textStart"
+                    app:layout_constraintTop_toBottomOf="@id/search_input_layout" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Popular Destinations Section -->
+        <TextView
+            android:id="@+id/tv_popular_destinations_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/popular_destinations"
+            android:textColor="@color/primary_text"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_card" />
+
+        <TextView
+            android:id="@+id/tv_popular_destinations_subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/curated_destinations"
+            android:textColor="@color/secondary_text"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_popular_destinations_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_popular_destinations_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_popular_destinations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tv_popular_destinations_subtitle"
+            tools:listitem="@layout/item_destination" />
+
+        <!-- Featured Experiences Section -->
+        <TextView
+            android:id="@+id/tv_featured_experiences_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/unique_experiences"
+            android:textColor="@color/primary_text"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_popular_destinations" />
+
+        <TextView
+            android:id="@+id/tv_featured_experiences_subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/immerse_yourself"
+            android:textColor="@color/secondary_text"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_featured_experiences_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_featured_experiences_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_featured_experiences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="24dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tv_featured_experiences_subtitle"
+            tools:listitem="@layout/item_experience" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

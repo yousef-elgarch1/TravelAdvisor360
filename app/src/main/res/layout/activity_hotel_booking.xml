@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.HotelBookingActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@color/white"
+            app:title="Hotel Booking"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="Destination">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_destination"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:hint="Check-in">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_check_in"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:focusable="false"
+                                android:clickable="true" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:hint="Check-out">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_check_out"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:focusable="false"
+                                android:clickable="true" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:hint="Guests">
+
+                            <Spinner
+                                android:id="@+id/spinner_guests"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/guest_numbers" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:hint="Rooms">
+
+                            <Spinner
+                                android:id="@+id/spinner_rooms"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/room_numbers" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Price Range"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:layout_marginTop="16dp" />
+
+                    <com.google.android.material.slider.RangeSlider
+                        android:id="@+id/price_range_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:valueFrom="0"
+                        android:valueTo="1000"
+                        app:values="@array/initial_slider_values"
+                        app:labelBehavior="floating" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Search Hotels"
+                        android:textAllCaps="false"
+                        app:cornerRadius="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_hotel_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Available Hotels"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_hotels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="16dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

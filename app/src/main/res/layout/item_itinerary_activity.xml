@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/iv_activity_type"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="Activity type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@android:drawable/ic_menu_myplaces" />
+
+    <TextView
+        android:id="@+id/tv_activity_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iv_activity_type"
+        app:layout_constraintTop_toTopOf="@id/iv_activity_type"
+        tools:text="10:00 AM - 12:00 PM" />
+
+    <TextView
+        android:id="@+id/tv_activity_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        app:layout_constraintStart_toEndOf="@id/iv_activity_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_activity_time"
+        tools:text="Visit Colosseum" />
+
+    <TextView
+        android:id="@+id/tv_activity_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textColor="@color/secondary_text"
+        app:layout_constraintStart_toEndOf="@id/iv_activity_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_activity_title"
+        tools:text="Piazza del Colosseo, Rome" />
+
+    <TextView
+        android:id="@+id/tv_activity_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_activity_type"
+        tools:text="€16.00" />
+
+    <TextView
+        android:id="@+id/tv_activity_notes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textStyle="italic"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/iv_activity_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_activity_location"
+        tools:text="Book tickets in advance to avoid long lines"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

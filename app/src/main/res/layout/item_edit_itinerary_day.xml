@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tv_day_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textStyle="bold"
+                android:text="Day 1" />
+
+            <TextView
+                android:id="@+id/tv_day_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@color/secondary_text"
+                tools:text="Monday, Jun 15, 2023" />
+
+            <ImageButton
+                android:id="@+id/btn_delete_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/secondary_text"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Delete day"
+                android:padding="4dp" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/day_notes_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="Day notes"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_day_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:minLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Activities"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Activity"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                app:icon="@drawable/ic_add"
+                app:iconSize="16dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_activities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_edit_itinerary_activity"
+            tools:itemCount="2" />
+
+        <TextView
+            android:id="@+id/tv_no_activities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="No activities planned yet"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="@color/secondary_text"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

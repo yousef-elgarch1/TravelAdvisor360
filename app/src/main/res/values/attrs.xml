@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RatingView">
+        <attr name="numStars" format="integer" />
+        <attr name="rating" format="float" />
+        <attr name="starSize" format="dimension" />
+        <attr name="starPadding" format="dimension" />
+        <attr name="activeColor" format="color" />
+        <attr name="inactiveColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundedImageView">
+        <attr name="cornerRadius" format="dimension" />
+    </declare-styleable>
+</resources>

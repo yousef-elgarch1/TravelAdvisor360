@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_travel_tip"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/iv_travel_tip"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/accent"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

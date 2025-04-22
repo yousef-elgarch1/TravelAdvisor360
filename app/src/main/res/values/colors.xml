@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary colors -->
+    <color name="primary">#009688</color>
+    <color name="primary_dark">#00796B</color>
+    <color name="primary_light">#B2DFDB</color>
+    <color name="accent">#00BFA5</color>
+
+    <!-- Text colors -->
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+
+    <!-- Background colors -->
+    <color name="background">#FFFFFF</color>
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray_medium">#EEEEEE</color>
+    <color name="tag_background">#E0F2F1</color>
+
+    <!-- Additional colors -->
+    <color name="divider">#BDBDBD</color>
+    <color name="error">#D32F2F</color>
+    <color name="success">#388E3C</color>
+    <color name="warning">#FFA000</color>
+    <color name="info">#1976D2</color>
+
+    <!-- Rating colors -->
+    <color name="rating_active">#FFC107</color>
+    <color name="rating_inactive">#CCCCCC</color>
+
+    <!-- Transparent colors -->
+    <color name="transparent">#00000000</color>
+    <color name="semi_transparent">#80000000</color>
+    <color name="overlay">#66000000</color>
+
+
+
+    <color name="colorAccent">#00BFA5</color> <!-- Light teal color -->
+
+    <!-- Background colors -->
+
+</resources>
+

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.traveladvisor360.fragments.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_destinationDetailsFragment"
+            app:destination="@id/destinationDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_experienceDetailsFragment"
+            app:destination="@id/experienceDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_tripPlanningActivity"
+            app:destination="@id/tripPlanningActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_destinationsFragment"
+            app:destination="@id/destinationsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchResultsFragment"
+            app:destination="@id/searchResultsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/destinationsFragment"
+        android:name="com.example.traveladvisor360.fragments.DestinationsFragment"
+        android:label="Destinations"
+        tools:layout="@layout/fragment_destinations">
+        <action
+            android:id="@+id/action_destinationsFragment_to_destinationDetailsFragment"
+            app:destination="@id/destinationDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/itinerariesFragment"
+        android:name="com.example.traveladvisor360.fragments.ItinerariesFragment"
+        android:label="Itineraries"
+        tools:layout="@layout/fragment_itineraries">
+        <action
+            android:id="@+id/action_itinerariesFragment_to_itineraryDetailsFragment"
+            app:destination="@id/itineraryDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/experiencesFragment"
+        android:name="com.example.traveladvisor360.fragments.ExperiencesFragment"
+        android:label="Experiences"
+        tools:layout="@layout/fragment_experiences">
+        <action
+            android:id="@+id/action_experiencesFragment_to_experienceDetailsFragment"
+            app:destination="@id/experienceDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.traveladvisor360.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/destinationDetailsFragment"
+        android:name="com.example.traveladvisor360.fragments.DestinationDetailsFragment"
+        android:label="Destination Details"
+        tools:layout="@layout/fragment_destination_details">
+        <argument
+            android:name="destination_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_destinationDetailsFragment_to_tripPlanningActivity"
+            app:destination="@id/tripPlanningActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/experienceDetailsFragment"
+        android:name="com.example.traveladvisor360.fragments.ExperienceDetailsFragment"
+        android:label="Experience Details"
+        tools:layout="@layout/fragment_experience_details">
+        <argument
+            android:name="experience_id"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/itineraryDetailsFragment"
+        android:name="com.example.traveladvisor360.fragments.ItineraryDetailsFragment"
+        android:label="Itinerary Details"
+        tools:layout="@layout/fragment_itinerary_details">
+        <argument
+            android:name="itinerary_id"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchResultsFragment"
+        android:name="com.example.traveladvisor360.fragments.SearchResultsFragment"
+        android:label="Search Results"
+        tools:layout="@layout/fragment_search_results">
+        <argument
+            android:name="search_query"
+            app:argType="string" />
+    </fragment>
+
+    <activity
+        android:id="@+id/tripPlanningActivity"
+        android:name="com.example.traveladvisor360.activities.TripPlanningActivity"
+        android:label="Plan Your Trip">
+        <argument
+            android:name="trip_type"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="destination_id"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="destination_name"
+            app:argType="string"
+            app:nullable="true" />
+    </activity>
+
+</navigation>

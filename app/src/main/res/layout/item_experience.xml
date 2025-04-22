@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_experience"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_experience"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/placeholder_image" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_category"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:chipBackgroundColor="@color/accent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nature" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_experience">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="2"
+                android:textColor="@color/primary_text"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Northern Lights Safari" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp"
+                app:drawableStartCompat="@drawable/ic_location"
+                app:drawableTint="@color/secondary_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                tools:text="Tromsø, Norway" />
+
+            <LinearLayout
+                android:id="@+id/rating_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_location">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_star"
+                    app:tint="@color/rating_active" />
+
+                <TextView
+                    android:id="@+id/tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    tools:text="4.9" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="12dp"
+                android:background="@color/divider"
+                app:layout_constraintTop_toBottomOf="@id/rating_container" />
+
+            <TextView
+                android:id="@+id/tv_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp"
+                app:drawableStartCompat="@drawable/ic_time"
+                app:drawableTint="@color/secondary_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                tools:text="4 hours" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/primary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_duration"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_duration"
+                tools:text="$129" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

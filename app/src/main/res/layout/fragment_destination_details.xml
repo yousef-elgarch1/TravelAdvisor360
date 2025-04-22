@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.DestinationDetailsFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginStart="16dp"
+            app:expandedTitleMarginEnd="64dp">
+
+            <ImageView
+                android:id="@+id/iv_cover_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="Destination Cover Image"
+                app:layout_collapseMode="parallax" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="Destination description goes here..."
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Weather Information"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_weather_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="Weather information goes here..."
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Best Time to Visit"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_best_time_to_visit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="Best time to visit information goes here..."
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Popular Attractions"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_attractions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="0dp"
+                android:paddingEnd="16dp"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nearby Hotels"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_nearby_hotels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="0dp"
+                android:paddingEnd="16dp"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nearby Experiences"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_nearby_experiences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="0dp"
+                android:paddingEnd="16dp"
+                android:layout_marginBottom="24dp" />
+
+            <Button
+                android:id="@+id/btn_start_planning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Start Planning Your Trip"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

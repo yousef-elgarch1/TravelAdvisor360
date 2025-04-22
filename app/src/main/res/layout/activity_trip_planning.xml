@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- EditText for destination -->
+    <EditText
+        android:id="@+id/destinationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Destination"/>
+
+    <!-- EditText for budget -->
+    <EditText
+        android:id="@+id/budgetEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Budget"/>
+
+    <!-- RadioGroup for trip type -->
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/soloRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Solo Trip"/>
+
+        <RadioButton
+            android:id="@+id/groupRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Group Trip"/>
+
+    </RadioGroup>
+
+    <!-- TabLayout for switching between different pages -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/accent" />
+
+    <!-- ViewPager2 to swipe between fragments -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_height="match_parent" />
+
+    <!-- Button for submitting trip details -->
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"/>
+
+</LinearLayout>

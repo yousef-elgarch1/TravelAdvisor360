@@ -1,0 +1,123 @@
+<resources>
+    <style name="Theme.TravelPlanner360" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondaryVariant">@color/accent</item>
+
+        <!-- Typography -->
+        <item name="android:fontFamily">@font/poppins</item>
+
+        <!-- Status bar -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/white</item>
+
+        <!-- Background -->
+        <item name="android:windowBackground">@color/background</item>
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+
+        <!-- Material components -->
+        <item name="materialButtonStyle">@style/Widget.TravelPlanner360.Button</item>
+        <item name="textInputStyle">@style/Widget.TravelPlanner360.TextInputLayout</item>
+        <item name="materialCardViewStyle">@style/Widget.TravelPlanner360.CardView</item>
+    </style>
+
+    <!-- Button Style -->
+    <style name="Widget.TravelPlanner360.Button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+    </style>
+
+    <!-- Button Outlined Style -->
+    <style name="Widget.TravelPlanner360.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="strokeColor">@color/white</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- TextInputLayout Style -->
+    <style name="Widget.TravelPlanner360.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/primary</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+    </style>
+
+    <!-- Card Style -->
+    <style name="Widget.TravelPlanner360.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <!-- Tag Style -->
+    <style name="TagStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@drawable/tag_background</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <!-- Title Style -->
+    <style name="TitleStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <!-- Subtitle Style -->
+    <style name="SubtitleStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <!-- Chip Style for amenities -->
+    <style name="Widget.TravelPlanner360.Chip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipCornerRadius">16dp</item>
+        <item name="chipBackgroundColor">@color/tag_background</item>
+        <item name="chipStrokeColor">@color/primary</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="closeIconVisible">false</item>
+    </style>
+
+    <!-- TabLayout Style -->
+    <style name="Widget.TravelPlanner360.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@color/accent</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabSelectedTextColor">@color/primary</item>
+        <item name="tabTextColor">@color/secondary_text</item>
+        <item name="tabMode">fixed</item>
+    </style>
+
+    <!-- Rating Bar Style -->
+    <style name="RatingBarStyle">
+        <item name="android:progressTint">@color/rating_active</item>
+        <item name="android:progressBackgroundTint">@color/rating_inactive</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:maxHeight">20dp</item>
+    </style>
+</resources>

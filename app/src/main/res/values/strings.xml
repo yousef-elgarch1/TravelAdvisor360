@@ -1,0 +1,159 @@
+<resources>
+    <string name="adventure">Adventure</string>
+    <string name="cultural">Cultural</string>
+    <string name="view_all_experiences">View All Experiences</string>
+
+    <!-- Authentication Strings -->
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="name">Full Name</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="or">OR</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="forgot_password">Forgot Password?</string>
+
+
+
+    <!-- Home Screen Strings -->
+    <string name="discover_perfect_journey">Discover Your Perfect Journey</string>
+    <string name="hero_subtitle">Explore thousands of destinations worldwide and create unforgettable travel memories</string>
+    <string name="start_planning">Start Planning</string>
+    <string name="explore_destinations">Explore Destinations</string>
+    <string name="destination">Destination</string>
+    <string name="dates">Dates</string>
+    <string name="travelers">Travelers</string>
+    <string name="where_do_you_want_to_go">Where do you want to go?</string>
+    <string name="search_destinations">Search destinations, cities or countries</string>
+    <string name="search">Search</string>
+    <string name="popular_destinations">Popular Destinations</string>
+    <string name="curated_destinations">Expertly curated destinations for your perfect getaway</string>
+    <string name="unique_experiences">Unique Experiences</string>
+    <string name="immerse_yourself">Immerse yourself in authentic local adventures</string>
+
+
+    <!-- Bottom Navigation Menu Strings -->
+    <string name="home">Home</string>
+    <string name="destinations">Destinations</string>
+    <string name="itineraries">Itineraries</string>
+    <string name="experiences">Experiences</string>
+    <string name="my_profile">Profile</string>
+
+
+
+    <!-- Destinations Fragment Strings -->
+    <string name="all">All</string>
+    <string name="popular">Popular</string>
+    <string name="beach">Beach</string>
+    <string name="mountain">Mountain</string>
+    <string name="city">City</string>
+    <string name="no_destinations_found">No destinations found</string>
+    <string name="try_different_search">Try a different search or filter to find what you\'re looking for</string>
+
+
+    <!-- Trip Planning -->
+    <string name="plan_your_trip">Plan Your Trip</string>
+    <string name="solo_trip">Solo Trip</string>
+    <string name="group_trip">Group Trip</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="select_trip_type">Select Trip Type</string>
+    <string name="generate_itinerary">Generate Itinerary</string>
+    <string name="manual_planning">Manual Planning</string>
+    <string name="ai_planning">AI Planning</string>
+    <string name="collaborate_with_companions">Collaborate easily with your travel companions</string>
+    <string name="perfect_for_families">Perfect for families, groups of friends or small tour groups</string>
+
+    <!-- Booking -->
+    <string name="book_your_flights">Book Your Flights</string>
+    <string name="book_your_accommodations">Book Your Accommodations</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="depart">Depart</string>
+    <string name="return_label">Return</string>
+    <string name="passengers">Passengers</string>
+    <string name="class_label">Class</string>
+    <string name="economy">Economy</string>
+    <string name="business">Business</string>
+    <string name="first_class">First Class</string>
+    <string name="search_flights">Search Flights</string>
+    <string name="search_hotels">Search Hotels</string>
+    <string name="check_in">Check-in</string>
+    <string name="check_out">Check-out</string>
+    <string name="guests">Guests</string>
+    <string name="rooms">Rooms</string>
+    <string name="price_range_per_night">Price Range (per night)</string>
+    <string name="amenities">Amenities</string>
+    <string name="select">Select</string>
+    <string name="flight_duration">Flight duration: %1$s</string>
+    <string name="per_person">per person</string>
+    <string name="per_night">per night</string>
+
+    <!-- Hotel Amenities -->
+    <string name="wifi">WiFi</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="fitness_center">Fitness Center</string>
+    <string name="pool">Pool</string>
+    <string name="spa">Spa</string>
+    <string name="pet_friendly">Pet Friendly</string>
+    <string name="bar">Bar</string>
+    <string name="concierge_service">Concierge service</string>
+    <string name="free_wifi">Free WiFi</string>
+    <string name="more">+%1$d more</string>
+
+    <!-- Chatbot -->
+    <string name="guidos_assistant">Guidos - Your Travel Assistant</string>
+    <string name="type_message">Type your message…</string>
+    <string name="send">Send</string>
+
+    <!-- Error Messages -->
+    <string name="error_invalid_email">Please enter a valid email address</string>
+    <string name="error_invalid_password">Password must be at least 6 characters</string>
+    <string name="error_passwords_dont_match">Passwords don\'t match</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_network">Network error. Please check your connection</string>
+    <string name="error_server">Server error. Please try again later</string>
+
+    <!-- Success Messages -->
+    <string name="success_registration">Registration successful!</string>
+    <string name="success_login">Welcome back!</string>
+    <string name="success_password_reset">Password reset link sent to your email</string>
+    <string name="success_booking">Booking confirmed successfully!</string>
+    <string name="success_itinerary_saved">Itinerary saved successfully!</string>
+
+    <!-- API Keys (Replace with your actual keys) -->
+    <string name="google_maps_key">YOUR_GOOGLE_MAPS_API_KEY</string>
+    <string name="facebook_app_id">YOUR_FACEBOOK_APP_ID</string>
+    <string name="fb_login_protocol_scheme">fb[YOUR_FACEBOOK_APP_ID]</string>
+
+    <!-- Shared Preferences Keys -->
+    <string name="pref_name">TravelPlanner360Prefs</string>
+    <string name="pref_access_token">access_token</string>
+    <string name="pref_refresh_token">refresh_token</string>
+    <string name="pref_token_expires_at">token_expires_at</string>
+    <string name="pref_user_id">user_id</string>
+    <string name="pref_user_email">user_email</string>
+    <string name="pref_user_name">user_name</string>
+
+    <!-- Miscellaneous -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="loading">Loading…</string>
+    <string name="retry">Retry</string>
+    <string name="logout">Logout</string>
+    <string name="reviews">%1$d reviews</string>
+    <string name="rating_format">%.1f</string>
+    <string name="price_format">$%1$s</string>
+    <string name="duration_format">%1$d hours</string>
+    <string name="days_format">%1$d days</string>
+    <string name="date_format">MMM d, yyyy</string>
+    <string name="time_format">HH:mm</string>
+
+    <!-- Hotels in location format -->
+    <string name="hotels_in_location">Hotels in %1$s</string>
+    <string name="flights_to_location">Flights to %1$s</string>
+    <string name="TravelAdivsor360">Travel Advisor360</string>
+
+</resources>
