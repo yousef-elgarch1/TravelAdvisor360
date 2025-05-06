@@ -16,8 +16,17 @@
             android:id="@+id/hero_section"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:background="@drawable/hero_background"
             app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/background"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <View
                 android:layout_width="match_parent"
@@ -70,8 +79,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="68dp"
                 android:text="@string/explore_destinations"
                 android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@id/btn_start_planning"
                 app:layout_constraintTop_toTopOf="@id/btn_start_planning" />
 

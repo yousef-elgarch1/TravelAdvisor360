@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
         experienceAdapter.setOnExperienceClickListener(experience -> {
             Bundle args = new Bundle();
             args.putString("experience_id", experience.getId());
-            navController.navigate(R.id.action_homeFragment_to_experienceDetailsFragment, args);
+            navController.navigate(R.id.action_experiencesFragment_to_experienceDetailsFragment, args);
         });
     }
 
@@ -236,7 +236,7 @@ public class HomeFragment extends Fragment {
         paris.setCountry("France");
         paris.setCity("Paris");
         paris.setDescription("The City of Light offers iconic landmarks, world-class cuisine, and romantic ambiance.");
-        paris.setImageUrl("paris_image");
+        paris.setImageUrl("paris");
         paris.setRating(4.8f);
         paris.setReviewCount(1253);
         paris.setTags(Arrays.asList("Romantic", "Cultural", "Historic"));
@@ -249,13 +249,76 @@ public class HomeFragment extends Fragment {
         tokyo.setCountry("Japan");
         tokyo.setCity("Tokyo");
         tokyo.setDescription("A fascinating blend of traditional culture and ultra-modern technology.");
-        tokyo.setImageUrl("tokyo_image");
+        tokyo.setImageUrl("tokyo");
         tokyo.setRating(4.7f);
         tokyo.setReviewCount(982);
         tokyo.setTags(Arrays.asList("Modern", "Cultural", "Food"));
         destinations.add(tokyo);
 
-        // Add more destinations as needed
+        // Seoul
+        Destination seoul = new Destination();
+        seoul.setId("3");
+        seoul.setName("Seoul");
+        seoul.setCountry("South Korea");
+        seoul.setCity("Seoul");
+        seoul.setDescription("A vibrant metropolis where ancient palaces meet K-pop culture and cutting-edge technology.");
+        seoul.setImageUrl("seoul");
+        seoul.setRating(4.6f);
+        seoul.setReviewCount(873);
+        seoul.setTags(Arrays.asList("Modern", "Cultural", "Shopping"));
+        destinations.add(seoul);
+
+// Mecca
+        Destination mecca = new Destination();
+        mecca.setId("4");
+        mecca.setName("Mecca");
+        mecca.setCountry("Saudi Arabia");
+        mecca.setCity("Mecca");
+        mecca.setDescription("The holiest city in Islam and the birthplace of Prophet Muhammad, drawing millions of pilgrims annually.");
+        mecca.setImageUrl("mecca");
+        mecca.setRating(4.9f);
+        mecca.setReviewCount(1542);
+        mecca.setTags(Arrays.asList("Religious", "Historic", "Cultural"));
+        destinations.add(mecca);
+
+// Dubai
+        Destination dubai = new Destination();
+        dubai.setId("5");
+        dubai.setName("Dubai");
+        dubai.setCountry("United Arab Emirates");
+        dubai.setCity("Dubai");
+        dubai.setDescription("A futuristic city of record-breaking skyscrapers, luxury shopping, and desert adventures.");
+        dubai.setImageUrl("dubai");
+        dubai.setRating(4.8f);
+        dubai.setReviewCount(1325);
+        dubai.setTags(Arrays.asList("Luxury", "Modern", "Shopping"));
+        destinations.add(dubai);
+
+// Beijing (China)
+        Destination beijing = new Destination();
+        beijing.setId("6");
+        beijing.setName("Beijing");
+        beijing.setCountry("China");
+        beijing.setCity("Beijing");
+        beijing.setDescription("China's historic capital featuring the Forbidden City, Great Wall, and a blend of imperial heritage and modernity.");
+        beijing.setImageUrl("beijing");
+        beijing.setRating(4.7f);
+        beijing.setReviewCount(1105);
+        beijing.setTags(Arrays.asList("Historic", "Cultural", "Imperial"));
+        destinations.add(beijing);
+
+// Rabat
+        Destination rabat = new Destination();
+        rabat.setId("7");
+        rabat.setName("Rabat");
+        rabat.setCountry("Morocco");
+        rabat.setCity("Rabat");
+        rabat.setDescription("Morocco's capital city with beautiful beaches, historic Kasbah, and elegant Andalusian gardens.");
+        rabat.setImageUrl("rabat");
+        rabat.setRating(4.5f);
+        rabat.setReviewCount(652);
+        rabat.setTags(Arrays.asList("Historic", "Coastal", "Cultural"));
+        destinations.add(rabat);
 
         return destinations;
     }
@@ -269,7 +332,7 @@ public class HomeFragment extends Fragment {
         northernLights.setTitle("Northern Lights Safari");
         northernLights.setLocation("Tromsø, Norway");
         northernLights.setDescription("Chase the magical Aurora Borealis with expert guides in the Arctic wilderness.");
-        northernLights.setImageUrl("northern_lights_image");
+        northernLights.setImageUrl("lights");
         northernLights.setCategory("Nature");
         northernLights.setRating(4.9f);
         northernLights.setReviewCount(45);
@@ -283,7 +346,7 @@ public class HomeFragment extends Fragment {
         cookingClass.setTitle("Traditional Cooking Class");
         cookingClass.setLocation("Marrakech, Morocco");
         cookingClass.setDescription("Learn to prepare authentic Moroccan dishes with local chefs in a traditional riad.");
-        cookingClass.setImageUrl("cooking_class_image");
+        cookingClass.setImageUrl("cooking");
         cookingClass.setCategory("Food & Drink");
         cookingClass.setRating(4.8f);
         cookingClass.setReviewCount(34);
@@ -297,7 +360,7 @@ public class HomeFragment extends Fragment {
         balloonRide.setTitle("Sunrise Hot Air Balloon Ride");
         balloonRide.setLocation("Cappadocia, Turkey");
         balloonRide.setDescription("Soar above the fairy chimneys and unique landscapes at dawn for breathtaking views.");
-        balloonRide.setImageUrl("balloon_ride_image");
+        balloonRide.setImageUrl("ballon");
         balloonRide.setCategory("Adventure");
         balloonRide.setRating(4.9f);
         balloonRide.setReviewCount(56);
@@ -311,7 +374,7 @@ public class HomeFragment extends Fragment {
         templeTour.setTitle("Ancient Temples Bike Tour");
         templeTour.setLocation("Siem Reap, Cambodia");
         templeTour.setDescription("Explore the magnificent temples of Angkor on a guided bicycle tour through the jungle.");
-        templeTour.setImageUrl("temple_tour_image");
+        templeTour.setImageUrl("temples");
         templeTour.setCategory("Cultural");
         templeTour.setRating(4.7f);
         templeTour.setReviewCount(28);
