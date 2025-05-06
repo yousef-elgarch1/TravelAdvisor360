@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".fragments.DestinationsFragment">
+    tools:context=".fragments.DestinationDetailsFragment">
 
     <!-- Header Section -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,6 +115,9 @@
         tools:listitem="@layout/item_destination" />
 
     <!-- Loading Progress -->
+
+    <!-- Empty State -->
+
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
@@ -122,10 +125,11 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.67" />
 
-    <!-- Empty State -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/empty_state"
         android:layout_width="match_parent"
@@ -138,6 +142,7 @@
             android:id="@+id/iv_empty"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_empty_state"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

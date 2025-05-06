@@ -4,6 +4,7 @@ import com.example.traveladvisor360.models.Destination;
 import com.example.traveladvisor360.models.Experience;
 import com.example.traveladvisor360.models.Flight;
 import com.example.traveladvisor360.models.Hotel;
+import com.example.traveladvisor360.models.User;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -31,6 +32,9 @@ public interface ApiService {
 
     @GET("destinations/{id}/experiences")
     Call<ApiResponse<List<Experience>>> getNearbyExperiences(@Path("id") String destinationId);
+
+    @GET("user/current")
+    Call<ApiResponse<User>> getCurrentUser();
 
     @GET("search/destinations")
     Call<ApiResponse<List<Destination>>> searchDestinations(@Query("query") String query);

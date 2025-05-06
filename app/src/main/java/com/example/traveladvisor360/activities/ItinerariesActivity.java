@@ -34,7 +34,7 @@ public class ItinerariesActivity extends AppCompatActivity {
 
     private void initViews() {
         rvItineraries = findViewById(R.id.rv_itineraries);
-        fabAdd = findViewById(R.id.fab_add);
+        fabAdd = findViewById(R.id.fab_add_itinerary);
         emptyView = findViewById(R.id.empty_view);
     }
 

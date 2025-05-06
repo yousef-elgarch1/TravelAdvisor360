@@ -19,6 +19,15 @@ public class Itinerary {
     private Date createdAt;
     private Date updatedAt;
 
+    private int travelerCount;
+
+
+    private String name;
+    private String description;
+    private String duration;
+    private String price;
+    private String imageUrl;
+
     public Itinerary() {
         days = new ArrayList<>();
     }
@@ -137,18 +146,69 @@ public class Itinerary {
         this.updatedAt = updatedAt;
     }
 
-    // Helper methods
-    public int getDuration() {
-        if (startDate == null || endDate == null) return 0;
 
-        long diff = endDate.getTime() - startDate.getTime();
-        return (int) (diff / (1000 * 60 * 60 * 24)) + 1;
-    }
 
     public String getFormattedDateRange() {
         if (startDate == null || endDate == null) return "";
 
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMM d, yyyy", java.util.Locale.getDefault());
         return sdf.format(startDate) + " - " + sdf.format(endDate);
+    }
+
+    /**
+     * Sets the number of travelers for this itinerary
+     * @param travelerCount The number of travelers
+     */
+    public void setTravelerCount(int travelerCount) {
+        this.travelerCount = travelerCount;
+    }
+
+    /**
+     * Gets the number of travelers for this itinerary
+     * @return The number of travelers
+     */
+    public int getTravelerCount() {
+        return travelerCount;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 }

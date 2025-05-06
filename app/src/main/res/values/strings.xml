@@ -155,5 +155,6 @@
     <string name="hotels_in_location">Hotels in %1$s</string>
     <string name="flights_to_location">Flights to %1$s</string>
     <string name="TravelAdivsor360">Travel Advisor360</string>
+    <string name="destination_cover_image">Destination Cover Image</string>
 
 </resources>

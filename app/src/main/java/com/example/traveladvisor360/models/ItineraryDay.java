@@ -16,6 +16,9 @@ public class ItineraryDay {
     private List<ItineraryActivity> activities;
     private String notes;
 
+
+    private String description;
+
     // Default constructor
     public ItineraryDay() {
     }
@@ -29,13 +32,10 @@ public class ItineraryDay {
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
-    public int getDayNumber() { return dayNumber; }
-    public void setDayNumber(int dayNumber) { this.dayNumber = dayNumber; }
 
     public Date getDate() { return date; }
     public void setDate(Date date) { this.date = date; }
 
-    public String getTitle() { return title; }
 
     public List<ItineraryActivity> getActivities() {
         return activities;
@@ -53,6 +53,33 @@ public class ItineraryDay {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM d", Locale.getDefault());
         return sdf.format(date);
     }
+
+    public void setDayNumber(int dayNumber) {
+        this.dayNumber = dayNumber;
+    }
+
+    public int getDayNumber() {
+        return dayNumber;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    // Add this to ItineraryDayAdapter class
+
+
+    public String getDescription() {
+        return description;
+    }
+
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
 }

@@ -2,9 +2,14 @@ package com.example.traveladvisor360.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.traveladvisor360.R;
+import com.example.traveladvisor360.callbacks.AuthCallback;
 import com.example.traveladvisor360.services.AuthService;
+import com.example.traveladvisor360.utils.SharedPreferencesManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -16,6 +21,7 @@ public class ProfileActivity extends AppCompatActivity {
     private MaterialButton btnChangePassword;
     private MaterialButton btnLogout;
     private AuthService authService;
+    private SharedPreferencesManager preferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         authService = AuthService.getInstance(this);
+        preferencesManager = SharedPreferencesManager.getInstance(this);
 
         initViews();
         loadUserProfile();
@@ -55,14 +62,24 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         btnLogout.setOnClickListener(v -> {
-            // Call logout without parameters since it doesn't accept any
-            authService.logout();
+            authService.logout(new AuthCallback<Void>() {
+                @Override
+                public void onSuccess(Void result) {
+                    // Clear preferences
+                    preferencesManager.clearUser();
 
-            // Navigate to auth screen after logout
-            Intent intent = new Intent(ProfileActivity.this, AuthActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+                    // Navigate to login screen
+                    Intent intent = new Intent(ProfileActivity.this, AuthActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onError(String error) {
+                    Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 }

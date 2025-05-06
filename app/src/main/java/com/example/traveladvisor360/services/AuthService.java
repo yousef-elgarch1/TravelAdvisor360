@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import com.example.traveladvisor360.callbacks.AuthCallback;
 import com.example.traveladvisor360.models.User;
-import com.example.traveladvisor360.models.UserPreferences;
 
 public class AuthService {
     private static final String PREF_NAME = "travel_advisor_prefs";
@@ -157,7 +156,7 @@ public class AuthService {
     /**
      * Log out current user
      */
-    public void logout() {
+    public void logout(AuthCallback<Void> authCallback) {
         preferences.edit().clear().apply();
     }
 
