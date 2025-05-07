@@ -71,7 +71,6 @@ public class HomeFragment extends Fragment {
         rvPopularDestinations = view.findViewById(R.id.rv_popular_destinations);
         rvFeaturedExperiences = view.findViewById(R.id.rv_featured_experiences);
         btnStartPlanning = view.findViewById(R.id.btn_start_planning);
-        btnExploreDestinations = view.findViewById(R.id.btn_explore_destinations);
         btnSearch = view.findViewById(R.id.btn_search);
         etSearchInput = view.findViewById(R.id.search_input);
         searchTabs = view.findViewById(R.id.search_tabs);
@@ -114,9 +113,6 @@ public class HomeFragment extends Fragment {
     private void setupClickListeners() {
         btnStartPlanning.setOnClickListener(v -> showTripPlanningDialog());
 
-        btnExploreDestinations.setOnClickListener(v -> {
-            navController.navigate(R.id.action_homeFragment_to_destinationsFragment);
-        });
 
         btnSearch.setOnClickListener(v -> {
             String query = etSearchInput.getText().toString().trim();

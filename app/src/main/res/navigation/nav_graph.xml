@@ -56,6 +56,16 @@
             app:destination="@id/searchResultsFragment" />
     </fragment>
 
+
+
+
+
+
+
+
+
+
+
     <!-- =================== DESTINATIONS FRAGMENT =================== -->
     <!-- Shows a list of travel destinations -->
     <fragment
@@ -84,6 +94,16 @@
             app:destination="@id/itinerariesFragment" />
     </fragment>
 
+
+
+
+
+
+
+
+
+
+
     <!-- =================== EXPERIENCES FRAGMENT =================== -->
     <!-- Shows a list of travel experiences -->
     <fragment
@@ -98,6 +118,13 @@
             app:destination="@id/experiencesFragment" />
     </fragment>
 
+
+
+
+
+
+
+
     <!-- =================== PROFILE FRAGMENT =================== -->
     <!-- User profile screen with user details and preferences -->
     <fragment
@@ -105,6 +132,15 @@
         android:name="com.example.traveladvisor360.fragments.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/activity_profile" />
+
+
+
+
+
+
+
+
+
 
     <!-- =================== DESTINATION DETAILS FRAGMENT =================== -->
     <!-- Shows detailed information about a specific destination -->
@@ -125,6 +161,12 @@
             app:destination="@id/tripPlanningActivity" />
     </fragment>
 
+
+
+
+
+
+
     <!-- =================== EXPERIENCE DETAILS FRAGMENT =================== -->
     <!-- Shows detailed information about a specific experience -->
     <fragment
@@ -139,19 +181,39 @@
             app:argType="string" />
     </fragment>
 
+
+
+
+
+
+
     <!-- =================== ITINERARY DETAILS FRAGMENT =================== -->
     <!-- Shows detailed information about a specific itinerary -->
     <fragment
-        android:id="@+id/itineraryDetails"
-        android:name="com.example.traveladvisor360.fragments.ExperienceDetailsFragment"
-        android:label="Itinerary Details"
-        tools:layout="@layout/fragment_itinerary_details">
-
-        <!-- Required parameter to identify which itinerary to display -->
-        <argument
-            android:name="itinerary_id"
-            app:argType="string" />
+        android:id="@+id/cheminFragment"
+        android:name="com.example.traveladvisor360.fragments.CheminFragment"
+        android:label="fragment_chemin"
+        tools:layout="@layout/fragment_chemin">
+        <action
+            android:id="@+id/action_cheminFragment_to_newCheminFragment"
+            app:destination="@id/tripPlanningActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_cheminFragment_to_cheminDetailsFragment"
+            app:destination="@id/cheminFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
+
+
+
+
 
     <!-- =================== SEARCH RESULTS FRAGMENT =================== -->
     <!-- Shows search results based on user query -->
@@ -166,6 +228,13 @@
             android:name="search_query"
             app:argType="string" />
     </fragment>
+
+
+
+
+
+
+
 
     <!-- =================== TRIP PLANNING ACTIVITY =================== -->
     <!-- Activity for planning a new trip -->

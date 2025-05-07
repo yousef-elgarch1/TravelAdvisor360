@@ -22,6 +22,8 @@
     <string name="hero_subtitle">Explore thousands of destinations worldwide and create unforgettable travel memories</string>
     <string name="start_planning">Start Planning</string>
     <string name="explore_destinations">Explore Destinations</string>
+    <string name="Welcome">Good Afternoon Youssef !</string>
+    <string name="suugestion">Ready for a journey around the world?</string>
     <string name="destination">Destination</string>
     <string name="dates">Dates</string>
     <string name="travelers">Travelers</string>
@@ -157,5 +159,54 @@
     <string name="TravelAdivsor360">Travel Advisor360</string>
     <string name="destination_cover_image">Destination Cover Image</string>
     <string name="add" />
+    <string name="header">header</string>
 
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="my_trips">My Trips</string>
+    <string name="travel_app">Travel App 360</string>
+    <string name="explore_the_world_with_us">Explore the world with us</string>
+
+
+
+
+
+        <string name="app_name">Travel Advisor 360</string>
+        <string name="app_slogan">Explorez le monde avec nous</string>
+
+        <!-- Navigation -->
+
+        <string name="chemin">Chemin</string>
+        <string name="profile">Profil</string>
+
+        <!-- Drawer Menu -->
+        <string name="mes_chemins">Mes chemins</string>
+        <string name="favoris">Favoris</string>
+        <string name="parametres">Paramètres</string>
+        <string name="aide_et_support">Aide &amp; Support</string>
+
+        <!-- Chemin Fragment -->
+        <string name="nouveau">Nouveau</string>
+        <string name="a_venir">À venir</string>
+        <string name="en_cours">En cours</string>
+        <string name="termines">Terminés</string>
+        <string name="no_chemins">Aucun chemin trouvé</string>
+        <string name="voir_le_resume">Voir le résumé</string>
+        <string name="voir_litineraire">Voir l\'itinéraire</string>
+
+        <!-- New Chemin -->
+        <string name="nouveau_chemin">Nouveau chemin</string>
+        <string name="title">Titre</string>
+        <string name="travel_dates">Dates de voyage</string>
+        <string name="start_date">Date de début</string>
+        <string name="end_date">Date de fin</string>
+        <string name="save_chemin">Enregistrer le chemin</string>
+        <string name="required_field">Champ obligatoire</string>
+        <string name="end_date_error">La date de fin doit être après la date de début</string>
+        <string name="chemin_saved">Chemin enregistré avec succès</string>
+
+        <!-- Chemin Details -->
+        <string name="chemin_details">Détails du chemin</string>
+        <string name="chemin_details_placeholder">Contenu détaillé du chemin à venir</string>
 </resources>
