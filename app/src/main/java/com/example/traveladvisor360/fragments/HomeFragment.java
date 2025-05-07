@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment {
         destinationAdapter.setOnDestinationClickListener(destination -> {
             Bundle args = new Bundle();
             args.putString("destination_id", destination.getId());
-            navController.navigate(R.id.action_homeFragment_to_destinationDetailsFragment, args);
+            navController.navigate(R.id.destinationsFragment, args);
         });
 
         // Experiences RecyclerView

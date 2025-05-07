@@ -27,6 +27,8 @@ playServicesAuth = "21.3.0"
 recyclerview = "1.4.0"
 retrofit = "2.9.0"
 roomRuntime = "2.7.0"
+playServicesMaps = "19.2.0"
+viewpager2 = "1.1.0"
 
 [libraries]
 androidx-espresso-core-v351 = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
@@ -60,6 +62,8 @@ play-services-auth = { module = "com.google.android.gms:play-services-auth", ver
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
+androidx-viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

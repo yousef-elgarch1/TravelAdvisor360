@@ -1,175 +1,327 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.AIPlanningFragment">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AI Trip Planner"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:textAlignment="center"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Destination"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_destination"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Budget"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:layout_marginTop="16dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_budget"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:valueFrom="500"
-                android:valueTo="10000"
-                android:stepSize="500"
-                android:value="2000"/>
+                android:text="AI Trip Planning"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp" />
 
             <TextView
-                android:id="@+id/tv_budget_value"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textStyle="bold"
-                android:text="$2000"/>
-        </LinearLayout>
+                android:text="Let our AI create the perfect itinerary based on your preferences"
+                android:textSize="14sp"
+                android:textColor="@color/secondary_text"
+                android:layout_marginBottom="16dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Duration"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:layout_marginTop="16dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_duration"
-                android:layout_width="0dp"
+            <!-- Destination Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:valueFrom="1"
-                android:valueTo="14"
-                android:stepSize="1"
-                android:value="3"/>
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_destination"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Destination"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Budget Slider -->
             <TextView
-                android:id="@+id/tv_duration_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Budget"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_budget"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:valueFrom="1"
+                    android:valueTo="5"
+                    android:stepSize="1"
+                    android:value="3" />
+
+                <TextView
+                    android:id="@+id/tv_budget_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="16sp"
+                    android:text="Medium" />
+            </LinearLayout>
+
+            <!-- Duration Slider -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Duration"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_duration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:valueFrom="1"
+                    android:valueTo="14"
+                    android:stepSize="1"
+                    android:value="7" />
+
+                <TextView
+                    android:id="@+id/tv_duration_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="16sp"
+                    android:text="7 days" />
+            </LinearLayout>
+
+            <!-- Travel Preferences -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Travel Preferences"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Travel Interests Checkboxes -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="What interests you most?"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="8dp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_cultural"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cultural &amp; Historical Sites" />
+
+                    <CheckBox
+                        android:id="@+id/cb_adventure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Adventure &amp; Outdoor Activities" />
+
+                    <CheckBox
+                        android:id="@+id/cb_relaxation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Relaxation &amp; Wellness" />
+
+                    <CheckBox
+                        android:id="@+id/cb_food_tourism"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Food &amp; Culinary Experiences" />
+
+                    <!-- Original Chip Groups from your layout kept for reference but commented out -->
+                    <!--
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group_interests"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_culture"
+                            style="@style/Widget.MaterialComponents.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Culture &amp; History" />
+
+                        ... other chips ...
+                    </com.google.android.material.chip.ChipGroup>
+                    -->
+
+                    <!-- Special Requirements -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_special_requirements"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Any special requirements or requests?"
+                            android:inputType="textMultiLine"
+                            android:minLines="3"
+                            android:gravity="top|start" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Generate Button -->
+            <Button
+                android:id="@+id/btn_generate_itinerary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Generate Itinerary"
+                android:textAllCaps="false"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp" />
+
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textStyle="bold"
-                android:text="3 days"/>
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <!-- Results RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_generated_itinerary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- Keeping part of original results view as commented code for reference -->
+            <!--
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp"
+                android:visibility="gone">
+
+                ... content ...
+            </com.google.android.material.card.MaterialCardView>
+            -->
+
+            <!-- AI Chat Interface - keeping this from your original layout -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_chat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ask Your Travel Assistant"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Have questions about your trip? Our AI can help!"
+                        android:textSize="14sp"
+                        android:textColor="@color/secondary_text"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Chat messages RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_chat_messages"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginBottom="8dp"
+                        tools:listitem="@layout/item_chat_message" />
+
+                    <!-- Message input -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_message"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Ask a question..."
+                                android:inputType="text" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_send"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:icon="@drawable/ic_send"
+                            app:iconGravity="textEnd"
+                            android:text="Send"
+                            style="@style/Widget.MaterialComponents.Button" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Preferences"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"/>
-
-        <CheckBox
-            android:id="@+id/cb_cultural"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cultural experiences (museums, historical sites)"
-            android:layout_marginVertical="4dp"/>
-
-        <CheckBox
-            android:id="@+id/cb_adventure"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Adventure activities (hiking, sports)"
-            android:layout_marginVertical="4dp"/>
-
-        <CheckBox
-            android:id="@+id/cb_relaxation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Relaxation (beaches, spas)"
-            android:layout_marginVertical="4dp"/>
-
-        <CheckBox
-            android:id="@+id/cb_food_tourism"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Food tourism (local cuisine, cooking classes)"
-            android:layout_marginVertical="4dp"/>
-
-        <Button
-            android:id="@+id/btn_generate_itinerary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Generate Itinerary"
-            android:layout_marginTop="16dp"/>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/tv_generated_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Generated Itinerary"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"
-            tools:visibility="visible"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_generated_itinerary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:visibility="visible"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_itinerary_day"/>
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

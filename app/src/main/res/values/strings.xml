@@ -156,5 +156,6 @@
     <string name="flights_to_location">Flights to %1$s</string>
     <string name="TravelAdivsor360">Travel Advisor360</string>
     <string name="destination_cover_image">Destination Cover Image</string>
+    <string name="add" />
 
 </resources>
