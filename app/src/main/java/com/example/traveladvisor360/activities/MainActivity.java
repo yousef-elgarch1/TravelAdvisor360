@@ -12,12 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.traveladvisor360.R;
+import com.example.traveladvisor360.fragments.PlanningOptionsDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -86,14 +88,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Setup floating action button
         fabAdd = findViewById(R.id.fab_add);
         if (fabAdd != null) {
-            fabAdd.setOnClickListener(v -> {
-                navigateToDestination(R.id.destinationsFragment);
-            });
+            fabAdd.setOnClickListener(v ->
+                showTripPlanningDialog());
         }
 
         // Set default selection
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
     }
+
+    private void showTripPlanningDialog() {
+        PlanningOptionsDialog dialog = new PlanningOptionsDialog();
+        dialog.show(getSupportFragmentManager(), "PlanningOptions");
+    }
+
+
 
     private boolean onBottomNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();

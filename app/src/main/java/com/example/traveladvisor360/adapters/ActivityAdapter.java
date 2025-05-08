@@ -1,55 +1,57 @@
 package com.example.traveladvisor360.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.traveladvisor360.R;
-import com.example.traveladvisor360.models.Activity;
+import com.example.traveladvisor360.models.TripActivity;
+import com.google.android.material.card.MaterialCardView;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ActivityViewHolder> {
 
-    private Context context;
-    private List<Activity> activities;
-    private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    private List<TripActivity> activities;
 
-    public ActivityAdapter(Context context, List<Activity> activities) {
-        this.context = context;
+    public ActivityAdapter(List<TripActivity> activities) {
         this.activities = activities;
     }
 
     @NonNull
     @Override
     public ActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_activity, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_activity, parent, false);
         return new ActivityViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ActivityViewHolder holder, int position) {
-        Activity activity = activities.get(position);
+        TripActivity activity = activities.get(position);
+        holder.activityNameText.setText(activity.getName());
+        holder.activityIconView.setImageResource(activity.getIconResId());
 
-        holder.tvTime.setText(String.format("%s - %s",
-                timeFormat.format(activity.getStartTime()),
-                timeFormat.format(activity.getEndTime())));
-        holder.tvTitle.setText(activity.getTitle());
-        holder.tvLocation.setText(activity.getLocation());
-
-        if (activity.getNote() != null && !activity.getNote().isEmpty()) {
-            holder.tvNote.setText(activity.getNote());
-            holder.tvNote.setVisibility(View.VISIBLE);
+        // Update selection state
+        if (activity.isSelected()) {
+            holder.activityCard.setStrokeColor(holder.itemView.getContext().getResources().getColor(R.color.colorAccent));
+            holder.activityCard.setStrokeWidth(4);
+            holder.activityCard.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.colorAccent));
         } else {
-            holder.tvNote.setVisibility(View.GONE);
+            holder.activityCard.setStrokeColor(holder.itemView.getContext().getResources().getColor(R.color.gray_light));
+            holder.activityCard.setStrokeWidth(1);
+            holder.activityCard.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.white));
         }
+
+        // Set click listener
+        holder.activityCard.setOnClickListener(v -> {
+            activity.setSelected(!activity.isSelected());
+            notifyItemChanged(position);
+        });
     }
 
     @Override
@@ -58,17 +60,15 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     }
 
     static class ActivityViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTime;
-        TextView tvTitle;
-        TextView tvLocation;
-        TextView tvNote;
+        MaterialCardView activityCard;
+        TextView activityNameText;
+        ImageView activityIconView;
 
         public ActivityViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTime = itemView.findViewById(R.id.tv_time);
-            tvTitle = itemView.findViewById(R.id.tv_title);
-            tvLocation = itemView.findViewById(R.id.tv_location);
-            tvNote = itemView.findViewById(R.id.tv_note);
+            activityCard = itemView.findViewById(R.id.card_activity);
+            activityNameText = itemView.findViewById(R.id.text_activity_name);
+            activityIconView = itemView.findViewById(R.id.image_activity_icon);
         }
     }
 }

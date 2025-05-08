@@ -28,6 +28,7 @@ import com.example.traveladvisor360.adapters.HotelAdapter;
 import com.example.traveladvisor360.models.Destination;
 import com.example.traveladvisor360.models.Experience;
 import com.example.traveladvisor360.models.Hotel;
+import com.example.traveladvisor360.models.HotelOption;
 import com.example.traveladvisor360.utils.ApiCallback;
 import com.example.traveladvisor360.utils.ApiClient;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -109,7 +110,7 @@ public class DestinationDetailsFragment extends Fragment {
                 new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         rvAttractions.setAdapter(attractionAdapter);
 
-        hotelAdapter = new HotelAdapter(requireContext());
+        hotelAdapter = new HotelAdapter((List<HotelOption>) requireContext());
         rvNearbyHotels.setLayoutManager(
                 new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         rvNearbyHotels.setAdapter(hotelAdapter);

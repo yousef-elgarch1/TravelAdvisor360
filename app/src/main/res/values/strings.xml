@@ -126,7 +126,7 @@
     <string name="success_itinerary_saved">Itinerary saved successfully!</string>
 
     <!-- API Keys (Replace with your actual keys) -->
-    <string name="google_maps_key">YOUR_GOOGLE_MAPS_API_KEY</string>
+    <string name="google_maps_key">AIzaSyDoY8hHz6hZu9DmqZPAvOEjtoSudSyrPxo</string>
     <string name="facebook_app_id">YOUR_FACEBOOK_APP_ID</string>
     <string name="fb_login_protocol_scheme">fb[YOUR_FACEBOOK_APP_ID]</string>
 
@@ -209,4 +209,5 @@
         <!-- Chemin Details -->
         <string name="chemin_details">Détails du chemin</string>
         <string name="chemin_details_placeholder">Contenu détaillé du chemin à venir</string>
+    <string name="groupPlaning">Plan a journey with friends and family</string>
 </resources>

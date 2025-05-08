@@ -258,4 +258,129 @@
             app:nullable="true" />
     </activity>
 
+
+    <fragment
+        android:id="@+id/destinationBudgetFragment"
+        android:name="com.example.traveladvisor360.fragments.DestinationBudgetFragment"
+        android:label="Destination &amp; Budget"
+        tools:layout="@layout/fragment_destination_budget">
+        <action
+            android:id="@+id/action_destinationBudgetFragment_to_companionsFragment"
+            app:destination="@id/companionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_destinationBudgetFragment_to_activitiesFragment"
+            app:destination="@id/activitiesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/companionsFragment"
+        android:name="com.example.traveladvisor360.fragments.CompanionsFragment"
+        android:label="Travel Companions"
+        tools:layout="@layout/fragment_companions">
+        <action
+            android:id="@+id/action_companionsFragment_to_activitiesFragment"
+            app:destination="@id/activitiesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/activitiesFragment"
+        android:name="com.example.traveladvisor360.fragments.ActivitiesFragment"
+        android:label="Activities"
+        tools:layout="@layout/fragment_activities">
+        <action
+            android:id="@+id/action_activitiesFragment_to_flightsFragment"
+            app:destination="@id/flightsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.traveladvisor360.fragments.HomeFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/action_homeFragment_to_destinationBudgetFragment"
+            app:destination="@id/destinationBudgetFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/flightsFragment"
+        android:name="com.example.traveladvisor360.fragments.FlightsFragment"
+        android:label="Flight Selection"
+        tools:layout="@layout/fragment_flights">
+        <action
+            android:id="@+id/action_flightsFragment_to_hotelsFragment"
+            app:destination="@id/hotelsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/hotelsFragment"
+        android:name="com.example.traveladvisor360.fragments.HotelsFragment"
+        android:label="Hotel Selection"
+        tools:layout="@layout/fragment_hotels">
+        <action
+            android:id="@+id/action_hotelsFragment_to_tripSummaryFragment"
+            app:destination="@id/tripSummaryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tripSummaryFragment"
+        android:name="com.example.traveladvisor360.fragments.TripSummaryFragment"
+        android:label="Trip Summary"
+        tools:layout="@layout/fragment_trip_summary">
+        <action
+            android:id="@+id/action_tripSummaryFragment_to_destinationBudgetFragment"
+            app:destination="@id/destinationBudgetFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_tripSummaryFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+
+    <!-- Inside the soloTripPlanningFragment node -->
+    <action
+        android:id="@+id/action_soloTripPlanningFragment_to_activitiesFragment"
+        app:destination="@id/activitiesFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+
+    <!-- Inside the groupTripPlanningFragment node -->
+    <action
+        android:id="@+id/action_groupTripPlanningFragment_to_activitiesFragment"
+        app:destination="@id/activitiesFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 </navigation>

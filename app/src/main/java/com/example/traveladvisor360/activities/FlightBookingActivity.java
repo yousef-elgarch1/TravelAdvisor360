@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.traveladvisor360.R;
 import com.example.traveladvisor360.adapters.FlightAdapter;
 import com.example.traveladvisor360.models.Flight;
+import com.example.traveladvisor360.models.FlightOption;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -75,7 +76,7 @@ public class FlightBookingActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         rvFlights.setLayoutManager(new LinearLayoutManager(this));
-        flightAdapter = new FlightAdapter(this);
+        flightAdapter = new FlightAdapter((List<FlightOption>) this);
         rvFlights.setAdapter(flightAdapter);
     }
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.traveladvisor360.R;
 import com.example.traveladvisor360.adapters.HotelAdapter;
 import com.example.traveladvisor360.models.Hotel;
+import com.example.traveladvisor360.models.HotelOption;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
@@ -51,7 +52,7 @@ public class HotelBookingActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         rvHotels.setLayoutManager(new LinearLayoutManager(this));
-        hotelAdapter = new HotelAdapter(this);
+        hotelAdapter = new HotelAdapter((List<HotelOption>) this);
         rvHotels.setAdapter(hotelAdapter);
     }
 
