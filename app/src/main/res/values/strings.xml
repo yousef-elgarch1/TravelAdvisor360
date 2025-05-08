@@ -126,7 +126,7 @@
     <string name="success_itinerary_saved">Itinerary saved successfully!</string>
 
     <!-- API Keys (Replace with your actual keys) -->
-    <string name="google_maps_key">AIzaSyDoY8hHz6hZu9DmqZPAvOEjtoSudSyrPxo</string>
+    <string name="google_maps_key">MyAPi</string>
     <string name="facebook_app_id">YOUR_FACEBOOK_APP_ID</string>
     <string name="fb_login_protocol_scheme">fb[YOUR_FACEBOOK_APP_ID]</string>
 
