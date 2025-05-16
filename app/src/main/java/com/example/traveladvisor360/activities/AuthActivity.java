@@ -16,6 +16,9 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
 
+import com.example.traveladvisor360.models.User;
+import com.example.traveladvisor360.utils.SharedPreferencesManager;
+
 public class AuthActivity extends AppCompatActivity {
 
     private TabLayout authTabs;
@@ -181,6 +184,13 @@ public class AuthActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 showLoading(false);
                 if (success) {
+                    // Fetch and save user info
+                    String name = userRepository.getUserNameByEmail(email);
+                    User user = new User();
+                    user.setName(name);
+                    user.setEmail(email);
+                    SharedPreferencesManager.getInstance(this).saveUser(user);
+
                     Toast.makeText(AuthActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
                     navigateToMain();
                 } else {
@@ -193,15 +203,21 @@ public class AuthActivity extends AppCompatActivity {
     private void signUp() {
         showLoading(true);
 
+        String name = etName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         // Name is not stored in DB, but you can extend UserRepository and DatabaseHelper to support it
 
+
         new Thread(() -> {
-            boolean success = userRepository.registerUser(email, password);
+            boolean success = userRepository.registerUser(name, email, password);
             runOnUiThread(() -> {
                 showLoading(false);
                 if (success) {
+                    User user = new User();
+                    user.setName(name); // or fetched from DB
+                    user.setEmail(email);
+                    SharedPreferencesManager.getInstance(this).saveUser(user);
                     Toast.makeText(AuthActivity.this, R.string.success_registration, Toast.LENGTH_SHORT).show();
                     authTabs.getTabAt(0).select();
                 } else {

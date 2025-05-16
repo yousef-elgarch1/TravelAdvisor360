@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,8 +21,10 @@ import com.example.traveladvisor360.adapters.DestinationAdapter;
 import com.example.traveladvisor360.adapters.ExperienceAdapter;
 import com.example.traveladvisor360.models.Destination;
 import com.example.traveladvisor360.models.Experience;
+import com.example.traveladvisor360.models.User;
 import com.example.traveladvisor360.utils.ApiCallback;
 import com.example.traveladvisor360.utils.ApiClient;
+import com.example.traveladvisor360.utils.SharedPreferencesManager;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -58,6 +61,17 @@ public class HomeFragment extends Fragment {
 
         // Initialize views
         initViews(view);
+
+        // Set welcome message
+        TextView tvWelcome = view.findViewById(R.id.tv_welcome);
+        SharedPreferencesManager preferencesManager = SharedPreferencesManager.getInstance(requireContext());
+        User currentUser = preferencesManager.getUser();
+
+        if (currentUser != null && currentUser.getName() != null) {
+            tvWelcome.setText("Welcome " + currentUser.getName() + "!");
+        } else {
+            tvWelcome.setText("Welcome!");
+        }
 
         // Setup click listeners
         setupClickListeners();

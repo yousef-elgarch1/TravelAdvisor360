@@ -12,9 +12,10 @@ public class UserRepository {
         dbHelper = new DatabaseHelper(context);
     }
 
-    public boolean registerUser(String email, String password) {
+    public boolean registerUser(String name, String email, String password) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_NAME, name);
         values.put(DatabaseHelper.COLUMN_EMAIL, email);
         values.put(DatabaseHelper.COLUMN_PASSWORD, password);
 
@@ -33,5 +34,23 @@ public class UserRepository {
         cursor.close();
         db.close();
         return isValid;
+    }
+
+    public String getUserNameByEmail(String email) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String name = null;
+        Cursor cursor = db.query(DatabaseHelper.TABLE_USERS,
+                new String[]{DatabaseHelper.COLUMN_NAME},
+                DatabaseHelper.COLUMN_EMAIL + "=?",
+                new String[]{email}, null, null, null);
+        if (cursor.moveToFirst()) {
+            int nameIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME);
+            if (nameIndex != -1) {
+                name = cursor.getString(nameIndex);
+            }
+        }
+        cursor.close();
+        db.close();
+        return name;
     }
 }
