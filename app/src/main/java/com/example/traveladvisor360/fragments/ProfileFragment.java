@@ -189,32 +189,20 @@ public class ProfileFragment extends Fragment {
     private void showLogoutConfirmationDialog() {
         new MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Logout")
-                .setMessage("Are you sure you want to logout?")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    performLogout();
-                })
-                .setNegativeButton("No", null)
+                .setMessage("Are you sure you want to log out?")
+                .setPositiveButton("Yes", (dialog, which) -> performLogout())
+                .setNegativeButton("Cancel", null)
                 .show();
     }
 
     private void performLogout() {
-        authService.logout(new AuthCallback<Void>() {
-            @Override
-            public void onSuccess(Void result) {
-                // Clear preferences
-                preferencesManager.clearUser();
+        // Clear user session
+        preferencesManager.clearUser();
 
-                // Navigate to login screen
-                Intent intent = new Intent(requireContext(), AuthActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                requireActivity().finish();
-            }
-
-            @Override
-            public void onError(String error) {
-                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Navigate to AuthActivity (login screen)
+        Intent intent = new Intent(requireContext(), AuthActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        requireActivity().finish();
     }
 }

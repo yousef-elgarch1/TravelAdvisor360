@@ -1,6 +1,5 @@
 package com.example.traveladvisor360.activities;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -11,9 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.traveladvisor360.R;
-import com.example.traveladvisor360.callbacks.AuthCallback;
-import com.example.traveladvisor360.models.User;
-import com.example.traveladvisor360.services.AuthService;
+import com.example.traveladvisor360.database.UserRepository;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.tabs.TabLayout;
@@ -34,16 +31,16 @@ public class AuthActivity extends AppCompatActivity {
     private MaterialButton btnGoogle;
     private MaterialButton btnFacebook;
     private LinearProgressIndicator progressIndicator;
-    private AuthService authService;
 
     private boolean isSignUpMode = false;
+    private UserRepository userRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        authService = AuthService.getInstance(this);
+        userRepository = new UserRepository(this);
 
         initViews();
         setupTabListener();
@@ -179,20 +176,18 @@ public class AuthActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        authService.login(email, password, new AuthCallback<User>() {
-            @Override
-            public void onSuccess(User result) {
+        new Thread(() -> {
+            boolean success = userRepository.loginUser(email, password);
+            runOnUiThread(() -> {
                 showLoading(false);
-                Toast.makeText(AuthActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
-                navigateToMain();
-            }
-
-            @Override
-            public void onError(String error) {
-                showLoading(false);
-                Toast.makeText(AuthActivity.this, error, Toast.LENGTH_LONG).show();
-            }
-        });
+                if (success) {
+                    Toast.makeText(AuthActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
+                    navigateToMain();
+                } else {
+                    Toast.makeText(AuthActivity.this, R.string.error_invalid_credentials, Toast.LENGTH_LONG).show();
+                }
+            });
+        }).start();
     }
 
     private void signUp() {
@@ -200,22 +195,20 @@ public class AuthActivity extends AppCompatActivity {
 
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
-        String name = etName.getText().toString().trim();
+        // Name is not stored in DB, but you can extend UserRepository and DatabaseHelper to support it
 
-        authService.register(email, password, name, new AuthCallback<User>() {
-            @Override
-            public void onSuccess(User result) {
+        new Thread(() -> {
+            boolean success = userRepository.registerUser(email, password);
+            runOnUiThread(() -> {
                 showLoading(false);
-                Toast.makeText(AuthActivity.this, R.string.success_registration, Toast.LENGTH_SHORT).show();
-                navigateToMain();
-            }
-
-            @Override
-            public void onError(String error) {
-                showLoading(false);
-                Toast.makeText(AuthActivity.this, error, Toast.LENGTH_LONG).show();
-            }
-        });
+                if (success) {
+                    Toast.makeText(AuthActivity.this, R.string.success_registration, Toast.LENGTH_SHORT).show();
+                    authTabs.getTabAt(0).select();
+                } else {
+                    Toast.makeText(AuthActivity.this, R.string.error_email_exists, Toast.LENGTH_LONG).show();
+                }
+            });
+        }).start();
     }
 
     private void signInWithGoogle() {
