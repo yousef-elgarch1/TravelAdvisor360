@@ -15,7 +15,7 @@ public class FlightOption {
     public FlightOption(String travelClass, String flightNumber, String airline,
                         String departureAirport, String arrivalAirport,
                         String departureTime, String arrivalTime,
-                        double price, int stops, boolean selected) {
+                        String price, int stops, boolean selected) {
         this.travelClass = travelClass;
         this.flightNumber = flightNumber;
         this.airline = airline;
@@ -23,7 +23,7 @@ public class FlightOption {
         this.arrivalAirport = arrivalAirport;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
-        this.price = price;
+        this.price = Double.parseDouble(price);
         this.stops = stops;
         this.selected = selected;
     }

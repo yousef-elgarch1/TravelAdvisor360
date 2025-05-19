@@ -127,7 +127,7 @@
     <string name="success_itinerary_saved">Itinerary saved successfully!</string>
 
     <!-- API Keys (Replace with your actual keys) -->
-    <string name="google_maps_key">MyAPi</string>
+    <string name="google_maps_key">AIzaSyBkykUuTmfDEYSAxyMLFRp3N3DmJQBkHxA</string>
     <string name="facebook_app_id">YOUR_FACEBOOK_APP_ID</string>
     <string name="fb_login_protocol_scheme">fb[YOUR_FACEBOOK_APP_ID]</string>
 
@@ -169,7 +169,7 @@
     <string name="travel_app">Travel App 360</string>
     <string name="explore_the_world_with_us">Explore the world with us</string>
 
-
+    <string name="map_content_description">Map showing selected destination</string>
 
 
 

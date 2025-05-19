@@ -1,6 +1,8 @@
 package com.example.traveladvisor360.fragments;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.example.traveladvisor360.adapters.CompanionSummaryAdapter;
 import com.example.traveladvisor360.models.TravelCompanion;
 import com.example.traveladvisor360.models.TripPlanningData;
 import com.google.android.material.card.MaterialCardView;
+import com.google.gson.Gson;
 
 import java.text.NumberFormat;
 import java.util.Currency;
@@ -88,11 +91,11 @@ public class TripSummaryFragment extends Fragment {
             // Complete planning and go back to home
             Navigation.findNavController(view)
                     .navigate(R.id.action_tripSummaryFragment_to_homeFragment);
-
             // Reset planning data for next trip
-            tripData.resetData();
+            tripData.reset();
         });
     }
+
 
     private void populateSummaryData() {
         // Set title based on trip type

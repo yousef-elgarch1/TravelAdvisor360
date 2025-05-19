@@ -1,13 +1,19 @@
 package com.example.traveladvisor360.fragments;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,216 +21,185 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.traveladvisor360.R;
+import com.example.traveladvisor360.models.GeoapifyResponse;
 import com.example.traveladvisor360.models.TripPlanningData;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.traveladvisor360.utils.AirportUtils;
 
-public class DestinationBudgetFragment extends Fragment implements OnMapReadyCallback {
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
-    private MapView mapView;
-    private GoogleMap googleMap;
-    private EditText destinationEdit;
-    private EditText budgetEdit;
-    private Spinner currencySpinner;
-    private Button searchButton;
-    private Button nextButton;
-    private Button backButton;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-    private String tripType;
-    private TripPlanningData tripData;
+public class DestinationBudgetFragment extends Fragment {
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private AutoCompleteTextView editDestination;
+    private EditText editBudget;
+    private Spinner spinnerCurrency;
+    private EditText editStartDate;
+    private EditText editReturnDate;
+    private ArrayAdapter<String> destinationAdapter;
 
-        // Get trip type from arguments
-        if (getArguments() != null) {
-            tripType = getArguments().getString("trip_type", "solo");
-        }
-
-        // Initialize trip data
-        tripData = TripPlanningData.getInstance();
-        tripData.setTripType(tripType);
-    }
+    private com.example.traveladvisor360.network.GeoapifyService geoapifyService;
+    private static final String GEOAPIFY_BASE_URL = "https://api.geoapify.com/";
+    private static final String GEOAPIFY_API_KEY = "3a2057294ce64a67a85b49d2016412e1";
+    private AutoCompleteTextView editDeparture;
+    private ArrayAdapter<String> departureAdapter;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_destination_budget, container, false);
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_destination_budget, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        editDestination = view.findViewById(R.id.edit_destination);
+        editBudget = view.findViewById(R.id.edit_budget);
+        spinnerCurrency = view.findViewById(R.id.spinner_currency);
+        editStartDate = view.findViewById(R.id.edit_start_date);
+        editReturnDate = view.findViewById(R.id.edit_return_date);
 
-        // Initialize views
-        mapView = view.findViewById(R.id.map_view);
-        destinationEdit = view.findViewById(R.id.edit_destination);
-        budgetEdit = view.findViewById(R.id.edit_budget);
-        currencySpinner = view.findViewById(R.id.spinner_currency);
-        searchButton = view.findViewById(R.id.btn_search);
-        nextButton = view.findViewById(R.id.btn_next);
-        backButton = view.findViewById(R.id.btn_back);
+        destinationAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, new ArrayList<>());
+        editDestination.setAdapter(destinationAdapter);
 
-        // Initialize map
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
-
-        // Setup currency spinner
-        setupCurrencySpinner();
-
-        // Search button click listener
-        searchButton.setOnClickListener(v -> {
-            String destination = destinationEdit.getText().toString().trim();
-            if (!destination.isEmpty()) {
-                searchLocation(destination);
-            } else {
-                Snackbar.make(view, "Please enter a destination", Snackbar.LENGTH_SHORT).show();
-            }
-        });
-
-        // Next button click listener
-        nextButton.setOnClickListener(v -> {
-            if (validateInputs()) {
-                saveDestinationBudget();
-                navigateToActivitiesSelection();
-            }
-        });
-
-        // Back button click listener
-        backButton.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigateUp();
-        });
-    }
-
-    private void setupCurrencySpinner() {
-        // Currency options
-        String[] currencies = {"USD ($)", "EUR (€)", "GBP (£)", "JPY (¥)", "AUD (A$)"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        ArrayAdapter<CharSequence> currencyAdapter = ArrayAdapter.createFromResource(
                 requireContext(),
-                android.R.layout.simple_spinner_item,
-                currencies);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.array.currencies,
+                android.R.layout.simple_spinner_item
+        );
+        currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCurrency.setAdapter(currencyAdapter);
 
-        currencySpinner.setAdapter(adapter);
-    }
+        editDeparture = view.findViewById(R.id.edit_departure);
+        departureAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, new ArrayList<>());
+        editDeparture.setAdapter(departureAdapter);
 
-    private void searchLocation(String location) {
-        // In a real app, you would use geocoding to search for the location
-        // For this example, we'll simulate finding the location
+        Retrofit geoapifyRetrofit = new Retrofit.Builder()
+                .baseUrl(GEOAPIFY_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        geoapifyService = geoapifyRetrofit.create(com.example.traveladvisor360.network.GeoapifyService.class);
 
-        // Example coordinates for popular destinations
-        LatLng coordinates;
-
-        switch (location.toLowerCase()) {
-            case "paris":
-                coordinates = new LatLng(48.8566, 2.3522);
-                break;
-            case "tokyo":
-                coordinates = new LatLng(35.6762, 139.6503);
-                break;
-            case "new york":
-                coordinates = new LatLng(40.7128, -74.0060);
-                break;
-            default:
-                // Default to a random location
-                coordinates = new LatLng(0, 0);
-                Snackbar.make(requireView(), "Location not found, please try another", Snackbar.LENGTH_SHORT).show();
-                return;
-        }
-
-        // Update the map
-        if (googleMap != null) {
-            googleMap.clear();
-            googleMap.addMarker(new MarkerOptions().position(coordinates).title(location));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 10));
-        }
-    }
-
-    private boolean validateInputs() {
-        if (destinationEdit.getText().toString().trim().isEmpty()) {
-            Snackbar.make(requireView(), "Please enter a destination", Snackbar.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (budgetEdit.getText().toString().trim().isEmpty()) {
-            Snackbar.make(requireView(), "Please enter your budget", Snackbar.LENGTH_SHORT).show();
-            return false;
-        }
-
-        try {
-            double budget = Double.parseDouble(budgetEdit.getText().toString().trim());
-            if (budget <= 0) {
-                Snackbar.make(requireView(), "Budget must be greater than zero", Snackbar.LENGTH_SHORT).show();
-                return false;
+        editDestination.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() >= 2) {
+                    fetchCitySuggestions(s.toString(), destinationAdapter);
+                }
             }
-        } catch (NumberFormatException e) {
-            Snackbar.make(requireView(), "Please enter a valid budget amount", Snackbar.LENGTH_SHORT).show();
-            return false;
-        }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
 
-        return true;
+        editDeparture.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() >= 2) {
+                    fetchCitySuggestions(s.toString(), departureAdapter);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        editStartDate.setOnClickListener(v -> showDatePickerDialog(editStartDate));
+        editReturnDate.setOnClickListener(v -> showDatePickerDialog(editReturnDate));
+
+        Button btnNext = view.findViewById(R.id.btn_next);
+        btnNext.setOnClickListener(v -> {
+            String destinationInput = editDestination.getText().toString().trim();
+            String departureInput = editDeparture.getText().toString().trim();
+
+            String[] destParts = destinationInput.split(",");
+            String[] depParts = departureInput.split(",");
+
+            if (destParts.length < 2 || depParts.length < 2) {
+                Toast.makeText(requireContext(), "Please select valid destination and departure.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String destCity = destParts[0].trim();
+            String destCountry = destParts[1].trim();
+            String depCity = depParts[0].trim();
+            String depCountry = depParts[1].trim();
+
+            String destIata = AirportUtils.findIataCode(requireContext(), destCity, destCountry);
+            String depIata = AirportUtils.findIataCode(requireContext(), depCity, depCountry);
+
+            if (destIata == null || depIata == null) {
+                Toast.makeText(requireContext(), "Could not find IATA code for one of the cities.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            saveTripDataAndNavigate(destIata, depIata, destCity, v);
+        });
+
+        return view;
     }
 
-    private void saveDestinationBudget() {
-        String destination = destinationEdit.getText().toString().trim();
-        double budget = Double.parseDouble(budgetEdit.getText().toString().trim());
-        String currency = currencySpinner.getSelectedItem().toString();
+    private void showDatePickerDialog(final EditText targetEditText) {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                requireContext(),
+                (view, year, month, dayOfMonth) -> {
+                    String date = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, dayOfMonth);
+                    targetEditText.setText(date);
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
 
-        // Save to trip data
-        tripData.setDestination(destination);
+    private void fetchCitySuggestions(String query, ArrayAdapter<String> adapter) {
+        geoapifyService.autocompleteCities(query, GEOAPIFY_API_KEY)
+                .enqueue(new Callback<GeoapifyResponse>() {
+                    @Override
+                    public void onResponse(Call<GeoapifyResponse> call, Response<GeoapifyResponse> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            List<String> suggestions = new ArrayList<>();
+                            for (GeoapifyResponse.Feature feature : response.body().features) {
+                                String city = feature.properties.city;
+                                String country = feature.properties.country;
+                                if (!TextUtils.isEmpty(city) && !TextUtils.isEmpty(country)) {
+                                    suggestions.add(city + ", " + country);
+                                }
+                            }
+                            adapter.clear();
+                            adapter.addAll(suggestions);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<GeoapifyResponse> call, Throwable t) { }
+                });
+    }
+
+    private void saveTripDataAndNavigate(String destIata, String depIata, String destCity, View v) {
+        TripPlanningData tripData = TripPlanningData.getInstance();
+        tripData.setDestination(destIata);
+        tripData.setDeparture(depIata);
+        tripData.setDestinationCityName(destCity); // <-- This line ensures city name is saved
+
+        String budgetStr = editBudget.getText().toString().trim();
+        double budget = 0;
+        if (!budgetStr.isEmpty()) {
+            try {
+                budget = Double.parseDouble(budgetStr);
+            } catch (NumberFormatException ignored) { }
+        }
         tripData.setBudget(budget);
-        tripData.setCurrency(currency);
-    }
+        tripData.setCurrency(spinnerCurrency.getSelectedItem().toString());
+        tripData.setStartDate(editStartDate.getText().toString().trim());
+        tripData.setReturnDate(editReturnDate.getText().toString().trim());
 
-    private void navigateToActivitiesSelection() {
-        if ("group".equals(tripType) && !tripData.hasCompanions()) {
-            // For group trips, navigate to companions selection if no companions added yet
-            Navigation.findNavController(requireView())
-                    .navigate(R.id.action_destinationBudgetFragment_to_companionsFragment);
-        } else {
-            // Otherwise go directly to activities selection
-            Navigation.findNavController(requireView())
-                    .navigate(R.id.action_destinationBudgetFragment_to_activitiesFragment);
-        }
-    }
-
-    @Override
-    public void onMapReady(GoogleMap map) {
-        googleMap = map;
-
-        // Set default map position
-        LatLng defaultLocation = new LatLng(0, 0);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 2));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
+        Navigation.findNavController(v).navigate(R.id.action_destinationBudgetFragment_to_flightsFragment);
     }
 }

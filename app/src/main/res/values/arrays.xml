@@ -24,4 +24,10 @@
             <item>1000</item>
         </array>
 
+    <string-array name="currencies">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>MAD</item>
+        <!-- Add more as needed -->
+    </string-array>
 </resources>

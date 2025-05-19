@@ -26,11 +26,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_EMAIL + " TEXT UNIQUE, " +
                 COLUMN_PASSWORD + " TEXT)";
         db.execSQL(createUsersTable);
+
+        // Create travel_plan table
+        db.execSQL("CREATE TABLE IF NOT EXISTS travel_plan (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "user_id INTEGER," +
+                "trip_type TEXT," +
+                "destination TEXT," +
+                "destination_city TEXT," +
+                "departure TEXT," +
+                "budget REAL," +
+                "currency TEXT," +
+                "start_date TEXT," +
+                "return_date TEXT," +
+                "flight_details TEXT," +   // JSON string
+                "hotel_details TEXT," +    // JSON string
+                "activities TEXT," +       // JSON string
+                "companions TEXT" +        // JSON string
+                ")");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS travel_plan");
         onCreate(db);
     }
+
 }

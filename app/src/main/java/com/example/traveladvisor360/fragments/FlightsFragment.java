@@ -18,12 +18,22 @@ import com.example.traveladvisor360.R;
 import com.example.traveladvisor360.adapters.FlightAdapter;
 import com.example.traveladvisor360.models.FlightOption;
 import com.example.traveladvisor360.models.TripPlanningData;
+import com.example.traveladvisor360.network.AmadeusAuthService;
+import com.example.traveladvisor360.network.AuthResponse;
+import com.example.traveladvisor360.network.FlightApiResponse;
+import com.example.traveladvisor360.network.FlightApiService;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FlightsFragment extends Fragment {
 
@@ -36,6 +46,8 @@ public class FlightsFragment extends Fragment {
     private FlightAdapter adapter;
     private List<FlightOption> availableFlights = new ArrayList<>();
     private FlightOption selectedFlight;
+
+    private String bearerToken;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,11 +74,11 @@ public class FlightsFragment extends Fragment {
         // Update destination text
         destinationTextView.setText(String.format("Flights to %s", tripData.getDestination()));
 
-        // Load available flights
-        loadFlightsForDestination();
-
         // Set up RecyclerView
         setupFlightsRecyclerView();
+
+        // Fetch bearer token and then load flights
+        fetchBearerTokenAndLoadFlights();
 
         // Set up click listeners
         nextButton.setOnClickListener(v -> {
@@ -81,45 +93,98 @@ public class FlightsFragment extends Fragment {
         });
     }
 
-    private void loadFlightsForDestination() {
-        // In a real app, this would fetch flights from an API
-        // For this example, we'll create mock data based on the destination
-        availableFlights.clear();
+    private void fetchBearerTokenAndLoadFlights() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://test.api.amadeus.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        String destination = tripData.getDestination();
+        AmadeusAuthService authService = retrofit.create(AmadeusAuthService.class);
 
-        // Add various flight options
-        availableFlights.add(new FlightOption(
-                "Economy", "AA123", "American Airlines",
-                "JFK", destination, "08:00", "14:30",
-                389.99, 1, false));
+        Call<AuthResponse> call = authService.getBearerToken(
+                "client_credentials",
+                "AUtDvsVxTBZewrEhGuVpLLMNa0c0QKuI",    // Replace with your Amadeus API key
+                "RQrl5y5OvGlBs5Dv"  // Replace with your Amadeus API secret
+        );
 
-        availableFlights.add(new FlightOption(
-                "Economy", "DL456", "Delta Airlines",
-                "LGA", destination, "10:15", "16:45",
-                425.50, 1, false));
-
-        availableFlights.add(new FlightOption(
-                "Business", "UA789", "United Airlines",
-                "EWR", destination, "12:30", "19:00",
-                789.99, 0, false));
-
-        availableFlights.add(new FlightOption(
-                "First Class", "BA246", "British Airways",
-                "JFK", destination, "18:45", "08:15+1",
-                1250.00, 0, false));
-
-        // Check if we have a previously selected flight and mark it
-        String previousSelection = tripData.getSelectedFlight();
-        if (previousSelection != null) {
-            for (FlightOption flight : availableFlights) {
-                if (flight.getFlightNumber().equals(previousSelection)) {
-                    flight.setSelected(true);
-                    selectedFlight = flight;
-                    break;
+        call.enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    bearerToken = "Bearer " + response.body().access_token;
+                    tripData.setBearerToken(bearerToken);
+                    loadFlightsForDestination();
+                } else {
+                    Snackbar.make(requireView(), "Failed to authenticate with Amadeus", Snackbar.LENGTH_SHORT).show();
                 }
             }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+                Snackbar.make(requireView(), "Error fetching token: " + t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadFlightsForDestination() {
+        if (bearerToken == null) {
+            Snackbar.make(requireView(), "No bearer token available", Snackbar.LENGTH_SHORT).show();
+            return;
         }
+
+        String origin = tripData.getDeparture();
+        String destination = tripData.getDestination(); // Should be IATA code, e.g., "CDG"
+        String departureDate = tripData.getStartDate() != null ? tripData.getStartDate() : "2024-07-01";
+        int adults = 1;
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://test.api.amadeus.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        FlightApiService apiService = retrofit.create(FlightApiService.class);
+
+        apiService.searchFlights(bearerToken, origin, destination, departureDate, adults)
+                .enqueue(new Callback<FlightApiResponse>() {
+                    @Override
+                    public void onResponse(Call<FlightApiResponse> call, Response<FlightApiResponse> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            availableFlights.clear();
+                            for (FlightApiResponse.FlightOffer offer : response.body().data) {
+                                // Get the last segment of the first itinerary
+                                FlightApiResponse.Segment lastSegment = offer.itineraries.get(0).segments
+                                        .get(offer.itineraries.get(0).segments.size() - 1);
+                                // Only add if arrival airport matches the selected destination
+                                FlightApiResponse.Segment firstSegment = offer.itineraries.get(0).segments.get(0);
+                                if (
+                                        firstSegment.departure.iataCode.equalsIgnoreCase(origin) &&
+                                                lastSegment.arrival.iataCode.equalsIgnoreCase(destination)
+                                ) {
+                                    availableFlights.add(new FlightOption(
+                                            offer.travelerPricings.get(0).fareDetailsBySegment.get(0).cabin,
+                                            lastSegment.carrierCode + lastSegment.number,
+                                            lastSegment.carrierCode,
+                                            firstSegment.departure.iataCode,
+                                            lastSegment.arrival.iataCode,
+                                            firstSegment.departure.at,
+                                            lastSegment.arrival.at,
+                                            offer.price.total,
+                                            offer.itineraries.get(0).segments.size() - 1,
+                                            false
+                                    ));
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Snackbar.make(requireView(), "No flights found", Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<FlightApiResponse> call, Throwable t) {
+                        Snackbar.make(requireView(), "Failed to fetch flights", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void setupFlightsRecyclerView() {
@@ -129,12 +194,9 @@ public class FlightsFragment extends Fragment {
 
         // Set selection listener
         adapter.setOnFlightSelectedListener(flight -> {
-            // Deselect previous selection
             if (selectedFlight != null) {
                 selectedFlight.setSelected(false);
             }
-
-            // Update selected flight
             selectedFlight = flight;
             selectedFlight.setSelected(true);
             adapter.notifyDataSetChanged();
@@ -152,7 +214,6 @@ public class FlightsFragment extends Fragment {
     private void saveSelectedFlight() {
         tripData.setSelectedFlight(selectedFlight.getFlightNumber());
 
-        // Save flight details
         Map<String, Object> flightDetails = new HashMap<>();
         flightDetails.put("airline", selectedFlight.getAirline());
         flightDetails.put("class", selectedFlight.getTravelClass());

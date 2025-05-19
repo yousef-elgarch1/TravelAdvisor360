@@ -156,7 +156,7 @@ public class ActivitiesFragment extends Fragment {
         // Add current selections
         for (TripActivity activity : availableActivities) {
             if (activity.isSelected()) {
-                tripData.addActivity(activity.getName());
+                tripData.getSelectedActivities().add(activity.getName());
             }
         }
     }

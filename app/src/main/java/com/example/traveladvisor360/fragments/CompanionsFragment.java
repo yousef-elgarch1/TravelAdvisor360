@@ -93,7 +93,7 @@ public class CompanionsFragment extends Fragment {
     private void showAddCompanionDialog() {
         AddCompanionDialog dialog = new AddCompanionDialog();
         dialog.setCompanionAddListener(companion -> {
-            tripData.addCompanion(companion);
+            tripData.getCompanions().add(companion);
             adapter.notifyItemInserted(tripData.getCompanions().size() - 1);
             updateEmptyState();
         });

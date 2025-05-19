@@ -18,12 +18,20 @@ import com.example.traveladvisor360.R;
 import com.example.traveladvisor360.adapters.HotelAdapter;
 import com.example.traveladvisor360.models.HotelOption;
 import com.example.traveladvisor360.models.TripPlanningData;
+import com.example.traveladvisor360.network.HotelApiResponse;
+import com.example.traveladvisor360.network.HotelApiService;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HotelsFragment extends Fragment {
 
@@ -53,22 +61,20 @@ public class HotelsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialize views
         hotelsRecyclerView = view.findViewById(R.id.recycler_hotels);
         nextButton = view.findViewById(R.id.btn_next);
         backButton = view.findViewById(R.id.btn_back);
         destinationTextView = view.findViewById(R.id.text_destination);
 
-        // Update destination text
-        destinationTextView.setText(String.format("Hotels in %s", tripData.getDestination()));
+        // Show city name if available, else fallback to IATA code
+        String cityName = tripData.getDestinationCityName() != null
+                ? tripData.getDestinationCityName()
+                : tripData.getDestination();
+        destinationTextView.setText(String.format("Hotels in %s", cityName));
 
-        // Load available hotels
+        setupHotelsRecyclerView();
         loadHotelsForDestination();
 
-        // Set up RecyclerView
-        setupHotelsRecyclerView();
-
-        // Set up click listeners
         nextButton.setOnClickListener(v -> {
             if (validateHotelSelection()) {
                 saveSelectedHotel();
@@ -82,44 +88,44 @@ public class HotelsFragment extends Fragment {
     }
 
     private void loadHotelsForDestination() {
-        // In a real app, this would fetch hotels from an API
-        // For this example, we'll create mock data based on the destination
-        availableHotels.clear();
+        String bearerToken = tripData.getBearerToken();
+        String cityCode = tripData.getDestination();
+        Integer radius = 20;
 
-        String destination = tripData.getDestination();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://test.api.amadeus.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        // Add various hotel options
-        availableHotels.add(new HotelOption(
-                "Grand Plaza Hotel", destination,
-                "Luxury hotel in the heart of the city",
-                4.5, 199.99, 4, false));
+        HotelApiService hotelApi = retrofit.create(HotelApiService.class);
 
-        availableHotels.add(new HotelOption(
-                "Comfort Inn", destination,
-                "Affordable comfort with free breakfast",
-                3.8, 89.99, 3, false));
-
-        availableHotels.add(new HotelOption(
-                "Royal Suites", destination,
-                "All-suite luxury hotel with spa services",
-                4.7, 249.99, 5, false));
-
-        availableHotels.add(new HotelOption(
-                "City View Apartments", destination,
-                "Self-catering apartments with stunning views",
-                4.2, 129.99, 4, false));
-
-        // Check if we have a previously selected hotel and mark it
-        String previousSelection = tripData.getSelectedHotel();
-        if (previousSelection != null) {
-            for (HotelOption hotel : availableHotels) {
-                if (hotel.getName().equals(previousSelection)) {
-                    hotel.setSelected(true);
-                    selectedHotel = hotel;
-                    break;
-                }
-            }
-        }
+        hotelApi.searchHotels(bearerToken, cityCode, radius)
+                .enqueue(new Callback<HotelApiResponse>() {
+                    @Override
+                    public void onResponse(Call<HotelApiResponse> call, Response<HotelApiResponse> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            availableHotels.clear();
+                            for (HotelApiResponse.HotelData hotel : response.body().data) {
+                                availableHotels.add(new HotelOption(
+                                        hotel.name,
+                                        hotel.address != null ? hotel.address.cityName : "",
+                                        hotel.description != null ? hotel.description.text : "",
+                                        hotel.rating,
+                                        hotel.price != null ? hotel.price.total : 0,
+                                        hotel.rating > 0 ? (int) hotel.rating : 0,
+                                        false
+                                ));
+                            }
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Snackbar.make(requireView(), "No hotels found", Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<HotelApiResponse> call, Throwable t) {
+                        Snackbar.make(requireView(), "Failed to fetch hotels", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void setupHotelsRecyclerView() {
@@ -127,14 +133,10 @@ public class HotelsFragment extends Fragment {
         hotelsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         hotelsRecyclerView.setAdapter(adapter);
 
-        // Set selection listener
         adapter.setOnHotelSelectedListener(hotel -> {
-            // Deselect previous selection
             if (selectedHotel != null) {
                 selectedHotel.setSelected(false);
             }
-
-            // Update selected hotel
             selectedHotel = hotel;
             selectedHotel.setSelected(true);
             adapter.notifyDataSetChanged();
@@ -151,15 +153,12 @@ public class HotelsFragment extends Fragment {
 
     private void saveSelectedHotel() {
         tripData.setSelectedHotel(selectedHotel.getName());
-
-        // Save hotel details
         Map<String, Object> hotelDetails = new HashMap<>();
         hotelDetails.put("location", selectedHotel.getLocation());
         hotelDetails.put("description", selectedHotel.getDescription());
         hotelDetails.put("rating", selectedHotel.getRating());
         hotelDetails.put("price", selectedHotel.getPricePerNight());
         hotelDetails.put("stars", selectedHotel.getStars());
-
         tripData.setHotelDetails(hotelDetails);
     }
 
