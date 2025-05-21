@@ -78,7 +78,7 @@ public class HotelsFragment extends Fragment {
         nextButton.setOnClickListener(v -> {
             if (validateHotelSelection()) {
                 saveSelectedHotel();
-                navigateToSummary();
+                navigateToActivities();
             }
         });
 
@@ -162,8 +162,8 @@ public class HotelsFragment extends Fragment {
         tripData.setHotelDetails(hotelDetails);
     }
 
-    private void navigateToSummary() {
+    private void navigateToActivities() {
         Navigation.findNavController(requireView())
-                .navigate(R.id.action_hotelsFragment_to_tripSummaryFragment);
+                .navigate(R.id.action_hotelsFragment_to_activitiesFragment);
     }
 }

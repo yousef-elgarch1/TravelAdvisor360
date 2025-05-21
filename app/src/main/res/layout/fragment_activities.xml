@@ -1,64 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Choose Activities"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="16dp" />
-
-    <TextView
-        android:id="@+id/text_destination"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Activities in Paris"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:gravity="center"
-        android:layout_marginBottom="16dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tap to select/deselect activities you're interested in:"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        android:gravity="center"
-        android:layout_marginBottom="16dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_activities"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:padding="4dp" />
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end"
-        android:layout_marginTop="16dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <Button
-            android:id="@+id/btn_back"
+        <!-- Big Title -->
+        <TextView
+            android:id="@+id/title_plan_activities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Activities planning"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="65dp"
+            android:layout_marginBottom="24dp"
+            android:textColor="@color/primary_text" />
+
+        <!-- Toggle Buttons at the top -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/btn_manual"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add Manually"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_ai"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="AI Recommed"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Manual Input Layout -->
+        <LinearLayout
+            android:id="@+id/manual_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add an Activity"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="16dp" />
+
+            <EditText
+                android:id="@+id/edit_activity_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Activity Name"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <AutoCompleteTextView
+                android:id="@+id/edit_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Location"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp"
+                android:completionThreshold="2" />
+
+            <EditText
+                android:id="@+id/edit_activity_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:focusable="false"
+                android:clickable="true"
+                android:layout_marginBottom="12dp" />
+
+            <EditText
+                android:id="@+id/edit_activity_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Time"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:focusable="false"
+                android:clickable="true"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btn_add_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Activity"
+                android:layout_marginBottom="8dp" />
+        </LinearLayout>
+
+        <!-- Activities List Section -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
-            android:layout_marginEnd="8dp"
-            style="@style/Widget.MaterialComponents.Button.TextButton" />
+            android:text="Added Activities"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp" />
 
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
+        <ListView
+            android:id="@+id/list_activities"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/card_background"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:padding="4dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- AI Recommendation Layout (hidden by default) -->
+        <LinearLayout
+            android:id="@+id/ai_recommendation_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Next" />
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AI Recommendations"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Based on your destination, here are some recommended activities:"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AI Recommendations will be available soon"
+                android:textStyle="italic"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp" />
+        </LinearLayout>
+
+        <!-- Button Row: Back (left), Next (right) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,13 +21,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.traveladvisor360.R;
 import com.example.traveladvisor360.adapters.ActivitySummaryAdapter;
 import com.example.traveladvisor360.adapters.CompanionSummaryAdapter;
+import com.example.traveladvisor360.database.ItineraryRepository;
+import com.example.traveladvisor360.models.SavedItinerary;
 import com.example.traveladvisor360.models.TravelCompanion;
 import com.example.traveladvisor360.models.TripPlanningData;
 import com.google.android.material.card.MaterialCardView;
 import com.google.gson.Gson;
+import com.example.traveladvisor360.utils.SharedPreferencesManager;
+import com.example.traveladvisor360.models.User;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Currency;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
@@ -87,13 +94,7 @@ public class TripSummaryFragment extends Fragment {
                     .navigate(R.id.action_tripSummaryFragment_to_destinationBudgetFragment);
         });
 
-        finishButton.setOnClickListener(v -> {
-            // Complete planning and go back to home
-            Navigation.findNavController(view)
-                    .navigate(R.id.action_tripSummaryFragment_to_homeFragment);
-            // Reset planning data for next trip
-            tripData.reset();
-        });
+        finishButton.setOnClickListener(v -> saveAndComplete());
     }
 
 
@@ -103,13 +104,17 @@ public class TripSummaryFragment extends Fragment {
         if ("solo".equals(tripType)) {
             titleTextView.setText("Your Solo Trip Summary");
             companionsCardView.setVisibility(View.GONE);
+            shareButton.setVisibility(View.GONE);
         } else {
             titleTextView.setText("Your Group Trip Summary");
             companionsCardView.setVisibility(View.VISIBLE);
+            shareButton.setVisibility(View.VISIBLE);
         }
 
         // Set destination and budget
-        destinationTextView.setText(tripData.getDestination());
+        String destination = tripData.getDestinationCityName() != null ?
+                tripData.getDestinationCityName() : tripData.getDestination();
+        destinationTextView.setText(destination);
 
         // Format currency
         String currencyCode = tripData.getCurrency();
@@ -201,5 +206,53 @@ public class TripSummaryFragment extends Fragment {
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareContent.toString());
 
         startActivity(Intent.createChooser(shareIntent, "Share trip details via"));
+    }
+
+    private void saveAndComplete() {
+        SavedItinerary itinerary = new SavedItinerary();
+        itinerary.setTripType(tripData.getTripType());
+        itinerary.setDestination(tripData.getDestination());
+        itinerary.setDestinationCityName(tripData.getDestinationCityName());
+        itinerary.setDeparture(tripData.getDeparture());
+        itinerary.setBudget(tripData.getBudget());
+        itinerary.setCurrency(tripData.getCurrency());
+        
+        // Parse string dates into Date objects
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        try {
+            Date startDate = dateFormat.parse(tripData.getStartDate());
+            Date returnDate = dateFormat.parse(tripData.getReturnDate());
+            itinerary.setStartDate(startDate);
+            itinerary.setReturnDate(returnDate);
+        } catch (Exception e) {
+            Toast.makeText(requireContext(), "Error parsing dates", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        itinerary.setSelectedFlight(tripData.getSelectedFlight());
+        itinerary.setFlightDetails(tripData.getFlightDetails());
+        itinerary.setSelectedHotel(tripData.getSelectedHotel());
+        itinerary.setHotelDetails(tripData.getHotelDetails());
+        itinerary.setSelectedActivities(tripData.getSelectedActivities());
+        itinerary.setCompanions(tripData.getCompanions());
+
+        // Get current user ID from SharedPreferences
+        SharedPreferencesManager preferencesManager = SharedPreferencesManager.getInstance(requireContext());
+        User currentUser = preferencesManager.getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        // Save itinerary using the repository
+        ItineraryRepository itineraryRepository = ItineraryRepository.getInstance(requireContext());
+        itineraryRepository.saveItinerary(itinerary, currentUser.getId());
+
+        // Reset trip data
+        tripData.reset();
+
+        // Navigate to itineraries fragment
+        Navigation.findNavController(requireView())
+                .navigate(R.id.action_tripSummaryFragment_to_itinerariesFragment);
     }
 }

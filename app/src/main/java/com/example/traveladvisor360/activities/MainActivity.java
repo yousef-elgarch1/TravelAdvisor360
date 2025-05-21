@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigateToDestination(R.id.destinationsFragment);
             return true;
         } else if (itemId == R.id.navigation_chemin) {
-            navigateToDestination(R.id.cheminFragment);
+            navigateToDestination(R.id.itinerariesFragment);
             return true;
         } else if (itemId == R.id.navigation_experiences) {
             navigateToDestination(R.id.experiencesFragment);
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_home) {
             navigateToDestination(R.id.homeFragment);
         } else if (id == R.id.nav_my_chemin) {
-            navigateToDestination(R.id.cheminFragment);
+            navigateToDestination(R.id.itinerariesFragment);
         } else if (id == R.id.nav_favorites) {
             showToast("Favoris");
         } else if (id == R.id.nav_settings) {

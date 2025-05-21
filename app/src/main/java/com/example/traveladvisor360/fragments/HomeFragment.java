@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.traveladvisor360.R;
 import com.example.traveladvisor360.adapters.DestinationAdapter;
 import com.example.traveladvisor360.adapters.ExperienceAdapter;
+import com.example.traveladvisor360.interfaces.ExperienceInteractionListener;
 import com.example.traveladvisor360.models.Destination;
 import com.example.traveladvisor360.models.Experience;
 import com.example.traveladvisor360.models.User;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ExperienceInteractionListener {
 
     private RecyclerView rvPopularDestinations;
     private RecyclerView rvFeaturedExperiences;
@@ -65,7 +66,7 @@ public class HomeFragment extends Fragment {
         // Set welcome message
         TextView tvWelcome = view.findViewById(R.id.tv_welcome);
         SharedPreferencesManager preferencesManager = SharedPreferencesManager.getInstance(requireContext());
-        User currentUser = preferencesManager.getUser();
+        User currentUser = preferencesManager.getCurrentUser();
 
         if (currentUser != null && currentUser.getName() != null) {
             tvWelcome.setText("Welcome " + currentUser.getName() + "!");
@@ -113,20 +114,12 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager experiencesLayoutManager = new LinearLayoutManager(
                 requireContext(), LinearLayoutManager.HORIZONTAL, false);
         rvFeaturedExperiences.setLayoutManager(experiencesLayoutManager);
-        experienceAdapter = new ExperienceAdapter(requireContext());
+        experienceAdapter = new ExperienceAdapter(requireContext(), this); // Pass the fragment as the listener
         rvFeaturedExperiences.setAdapter(experienceAdapter);
-
-        // Set click listener for experiences
-        experienceAdapter.setOnExperienceClickListener(experience -> {
-            Bundle args = new Bundle();
-            args.putString("experience_id", experience.getId());
-            navController.navigate(R.id.action_experiencesFragment_to_experienceDetailsFragment, args);
-        });
     }
 
     private void setupClickListeners() {
         btnStartPlanning.setOnClickListener(v -> showTripPlanningDialog());
-
 
         btnSearch.setOnClickListener(v -> {
             String query = etSearchInput.getText().toString().trim();
@@ -278,7 +271,7 @@ public class HomeFragment extends Fragment {
         seoul.setTags(Arrays.asList("Modern", "Cultural", "Shopping"));
         destinations.add(seoul);
 
-// Mecca
+        // Mecca
         Destination mecca = new Destination();
         mecca.setId("4");
         mecca.setName("Mecca");
@@ -291,7 +284,7 @@ public class HomeFragment extends Fragment {
         mecca.setTags(Arrays.asList("Religious", "Historic", "Cultural"));
         destinations.add(mecca);
 
-// Dubai
+        // Dubai
         Destination dubai = new Destination();
         dubai.setId("5");
         dubai.setName("Dubai");
@@ -304,7 +297,7 @@ public class HomeFragment extends Fragment {
         dubai.setTags(Arrays.asList("Luxury", "Modern", "Shopping"));
         destinations.add(dubai);
 
-// Beijing (China)
+        // Beijing (China)
         Destination beijing = new Destination();
         beijing.setId("6");
         beijing.setName("Beijing");
@@ -317,7 +310,7 @@ public class HomeFragment extends Fragment {
         beijing.setTags(Arrays.asList("Historic", "Cultural", "Imperial"));
         destinations.add(beijing);
 
-// Rabat
+        // Rabat
         Destination rabat = new Destination();
         rabat.setId("7");
         rabat.setName("Rabat");
@@ -393,5 +386,44 @@ public class HomeFragment extends Fragment {
         experiences.add(templeTour);
 
         return experiences;
+    }
+
+    // ExperienceInteractionListener implementation
+    @Override
+    public void onExperienceClick(Experience experience) {
+        // Navigate to experience details
+        Bundle args = new Bundle();
+        args.putString("experience_id", experience.getId());
+        navController.navigate(R.id.action_experiencesFragment_to_experienceDetailsFragment, args);
+    }
+
+    @Override
+    public void onLikeClick(Experience experience) {
+        // Handle like action (can be empty in HomeFragment if not needed)
+        Toast.makeText(requireContext(), "Liked: " + experience.getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCommentClick(Experience experience) {
+        // Handle comment action (can be empty in HomeFragment if not needed)
+        onExperienceClick(experience); // Navigate to details to comment
+    }
+
+    @Override
+    public void onShareClick(Experience experience) {
+        // Handle share action
+        Toast.makeText(requireContext(), "Sharing: " + experience.getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBookmarkClick(Experience experience) {
+        // Handle bookmark action
+        Toast.makeText(requireContext(), "Saved: " + experience.getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBookNowClick(Experience experience) {
+        // Handle book now action
+        Toast.makeText(requireContext(), "Booking: " + experience.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

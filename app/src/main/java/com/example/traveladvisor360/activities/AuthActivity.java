@@ -37,13 +37,12 @@ public class AuthActivity extends AppCompatActivity {
 
     private boolean isSignUpMode = false;
     private UserRepository userRepository;
+    private SharedPreferencesManager preferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-
-        userRepository = new UserRepository(this);
 
         initViews();
         setupTabListener();
@@ -67,6 +66,22 @@ public class AuthActivity extends AppCompatActivity {
 
         nameLayout.setVisibility(View.GONE);
         confirmPasswordLayout.setVisibility(View.GONE);
+
+        userRepository = UserRepository.getInstance(this);
+        preferencesManager = SharedPreferencesManager.getInstance(this);
+
+        btnAuth.setOnClickListener(v -> {
+            if (validateInput()) {
+                if (isSignUpMode) {
+                    signUp();
+                } else {
+                    signIn();
+                }
+            }
+        });
+
+        btnGoogle.setOnClickListener(v -> signInWithGoogle());
+        btnFacebook.setOnClickListener(v -> signInWithFacebook());
     }
 
     private void setupTabListener() {
@@ -187,9 +202,10 @@ public class AuthActivity extends AppCompatActivity {
                     // Fetch and save user info
                     String name = userRepository.getUserNameByEmail(email);
                     User user = new User();
+                    user.setId("1"); // Set a default ID for now
                     user.setName(name);
                     user.setEmail(email);
-                    SharedPreferencesManager.getInstance(this).saveUser(user);
+                    preferencesManager.saveUser(user);
 
                     Toast.makeText(AuthActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
                     navigateToMain();
@@ -206,8 +222,6 @@ public class AuthActivity extends AppCompatActivity {
         String name = etName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
-        // Name is not stored in DB, but you can extend UserRepository and DatabaseHelper to support it
-
 
         new Thread(() -> {
             boolean success = userRepository.registerUser(name, email, password);
@@ -215,9 +229,10 @@ public class AuthActivity extends AppCompatActivity {
                 showLoading(false);
                 if (success) {
                     User user = new User();
-                    user.setName(name); // or fetched from DB
+                    user.setId("1"); // Set a default ID for now
+                    user.setName(name);
                     user.setEmail(email);
-                    SharedPreferencesManager.getInstance(this).saveUser(user);
+                    preferencesManager.saveUser(user);
                     Toast.makeText(AuthActivity.this, R.string.success_registration, Toast.LENGTH_SHORT).show();
                     authTabs.getTabAt(0).select();
                 } else {

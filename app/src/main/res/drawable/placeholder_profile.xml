@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background Circle -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#E0E0E0" /> <!-- Light gray background -->
+            <size
+                android:width="96dp"
+                android:height="96dp" />
+        </shape>
+    </item>
+
+    <!-- Person Icon (using a vector drawable) -->
+    <!-- You'll need to have an ic_person.xml vector asset or similar -->
+    <item
+        android:drawable="@drawable/ic_profile"
+        android:width="48dp"
+        android:height="48dp"
+        android:gravity="center">
+        <inset
+            android:insetLeft="24dp"
+            android:insetTop="24dp"
+            android:insetRight="24dp"
+            android:insetBottom="24dp" />
+    </item>
+
+</layer-list>

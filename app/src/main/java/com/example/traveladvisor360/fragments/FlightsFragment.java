@@ -103,8 +103,8 @@ public class FlightsFragment extends Fragment {
 
         Call<AuthResponse> call = authService.getBearerToken(
                 "client_credentials",
-                "AUtDvsVxTBZewrEhGuVpLLMNa0c0QKuI",    // Replace with your Amadeus API key
-                "RQrl5y5OvGlBs5Dv"  // Replace with your Amadeus API secret
+                "NFk727ou4KbH2tpQXVjVUQAABHFWSXXN",
+                "UABCC9yTmOQfQYew"
         );
 
         call.enqueue(new Callback<AuthResponse>() {

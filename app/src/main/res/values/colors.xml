@@ -41,5 +41,8 @@
 
     <!-- Background colors -->
 
+
+    <color name="like_active">#E91E63</color>
+    <color name="gold">#FFD700</color>
 </resources>
 

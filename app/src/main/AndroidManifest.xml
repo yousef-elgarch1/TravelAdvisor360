@@ -79,12 +79,12 @@
             android:value="@string/facebook_app_id" />
 
         <!-- Google Maps API Key -->
-        <meta-data
+        <!--><meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-        </application>
+            android:value="@string/google_maps_key" /><!-->
+    </application>
 
 
 
-    </manifest>
+</manifest>
 

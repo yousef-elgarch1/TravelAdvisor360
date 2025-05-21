@@ -9,8 +9,9 @@ import com.example.traveladvisor360.models.User;
 import com.google.gson.Gson;
 
 public class SharedPreferencesManager {
-    private static final String PREF_NAME = "TravelPlanner360Prefs";
-    private static final String KEY_USER = "user";
+    private static final String PREF_NAME = "TravelAdvisorPrefs";
+    private static final String KEY_USER = "current_user";
+    private static final String KEY_USER_ID = "current_user_id";
     private static final String KEY_DARK_MODE = "dark_mode";
     private static final String KEY_LANGUAGE = "language";
     private static final String KEY_FIRST_LAUNCH = "first_launch";
@@ -20,23 +21,26 @@ public class SharedPreferencesManager {
     private final Gson gson;
 
     private SharedPreferencesManager(Context context) {
-        preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        preferences = context.getApplicationContext()
+                .getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         gson = new Gson();
     }
 
     public static synchronized SharedPreferencesManager getInstance(Context context) {
         if (instance == null) {
-            instance = new SharedPreferencesManager(context.getApplicationContext());
+            instance = new SharedPreferencesManager(context);
         }
         return instance;
     }
 
     public void saveUser(User user) {
-        String userJson = gson.toJson(user);
-        preferences.edit().putString(KEY_USER, userJson).apply();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(KEY_USER, gson.toJson(user));
+        editor.putString(KEY_USER_ID, user.getId());
+        editor.apply();
     }
 
-    public User getUser() {
+    public User getCurrentUser() {
         String userJson = preferences.getString(KEY_USER, null);
         if (userJson != null) {
             return gson.fromJson(userJson, User.class);
@@ -44,8 +48,15 @@ public class SharedPreferencesManager {
         return null;
     }
 
+    public String getCurrentUserId() {
+        return preferences.getString(KEY_USER_ID, "");
+    }
+
     public void clearUser() {
-        preferences.edit().remove(KEY_USER).apply();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(KEY_USER);
+        editor.remove(KEY_USER_ID);
+        editor.apply();
     }
 
     public void setDarkMode(boolean isDarkMode) {

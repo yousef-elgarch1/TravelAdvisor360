@@ -1,22 +1,33 @@
 package com.example.traveladvisor360.fragments;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.traveladvisor360.R;
 import com.example.traveladvisor360.adapters.ItineraryDayAdapter;
 import com.example.traveladvisor360.models.ItineraryDay;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class ManualPlanningFragment extends Fragment {
 
@@ -28,6 +39,13 @@ public class ManualPlanningFragment extends Fragment {
     private FloatingActionButton fabAddDay;
     private Button btnSave;
     private List<ItineraryDay> itineraryDays = new ArrayList<>();
+
+    // Add fields for map functionality
+    private AutoCompleteTextView editDestination;
+    private AutoCompleteTextView editDeparture;
+    private ImageButton btnDestinationMap;
+    private ImageButton btnDepartureMap;
+    private Spinner spinnerCurrency;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +60,11 @@ public class ManualPlanningFragment extends Fragment {
         initViews(view);
         setupRecyclerView();
         setupClickListeners();
+
+        // Initialize map-related components
+        initMapButtons(view);
+        initDatePickers(view);
+        initCurrencySpinner(view);
     }
 
     private void initViews(View view) {
@@ -119,5 +142,152 @@ public class ManualPlanningFragment extends Fragment {
 
         // Save itinerary to database or API
         // This would typically involve creating an Itinerary object and saving it
+    }
+
+    //===================== NEW MAP FUNCTIONALITY METHODS =====================
+
+    /**
+     * Initialize the map button click handlers
+     */
+    private void initMapButtons(View view) {
+        // Initialize views - find them by ID in the layout
+        try {
+            editDestination = view.findViewById(R.id.edit_destination);
+            editDeparture = view.findViewById(R.id.edit_departure);
+            btnDestinationMap = view.findViewById(R.id.btn_destination_map);
+            btnDepartureMap = view.findViewById(R.id.btn_departure_map);
+
+            // Log whether we found the buttons
+            if (btnDestinationMap == null) {
+                Log.e("MapDebug", "Destination map button not found in layout!");
+            }
+
+            if (btnDepartureMap == null) {
+                Log.e("MapDebug", "Departure map button not found in layout!");
+            }
+
+            // Set click listeners for map buttons if they exist
+            if (btnDestinationMap != null) {
+                btnDestinationMap.setOnClickListener(v -> {
+                    Log.d("MapDebug", "Destination map button clicked!");
+                    openMapSelection("Select Destination", true);
+                });
+            }
+
+            if (btnDepartureMap != null) {
+                btnDepartureMap.setOnClickListener(v -> {
+                    Log.d("MapDebug", "Departure map button clicked!");
+                    openMapSelection("Select Departure", false);
+                });
+            }
+        } catch (Exception e) {
+            Log.e("MapDebug", "Error initializing map buttons: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Opens the map selection dialog
+     */
+    private void openMapSelection(String title, boolean isDestination) {
+        try {
+            MapSelectionFragment dialog = MapSelectionFragment.newInstance(title, isDestination);
+
+            dialog.setOnLocationSelectedListener((locationName, isForDestination) -> {
+                if (isForDestination) {
+                    if (editDestination != null) {
+                        editDestination.setText(locationName);
+                    }
+                } else {
+                    if (editDeparture != null) {
+                        editDeparture.setText(locationName);
+                    }
+                }
+            });
+
+            dialog.show(getParentFragmentManager(), "mapSelection");
+        } catch (Exception e) {
+            Log.e("MapDebug", "Error opening map selection: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Initialize date picker dialogs for the date fields
+     */
+    private void initDatePickers(View view) {
+        try {
+            // Find date fields by ID - this is optional and you can skip if these already have pickers
+            TextInputEditText startDateField = view.findViewById(R.id.edit_start_date);
+            TextInputEditText returnDateField = view.findViewById(R.id.edit_return_date);
+
+            // If date fields were found, add click listeners
+            if (startDateField != null) {
+                startDateField.setOnClickListener(v -> showDatePicker(startDateField));
+            }
+
+            if (returnDateField != null) {
+                returnDateField.setOnClickListener(v -> showDatePicker(returnDateField));
+            }
+        } catch (Exception e) {
+            Log.e("MapDebug", "Error initializing date pickers: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Shows a date picker dialog and updates the field with the selected date
+     */
+    private void showDatePicker(TextInputEditText dateField) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                requireContext(),
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    // Format the date as desired
+                    String selectedDate = String.format(Locale.getDefault(),
+                            "%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
+                    dateField.setText(selectedDate);
+                },
+                year, month, day);
+
+        // Set minimum date to today
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+        datePickerDialog.show();
+    }
+
+    /**
+     * Initialize the currency spinner with common currencies
+     */
+    private void initCurrencySpinner(View view) {
+        try {
+            spinnerCurrency = view.findViewById(R.id.spinner_currency);
+
+            if (spinnerCurrency != null) {
+                // Create an array of common currencies
+                String[] currencies = new String[] {
+                        "USD - US Dollar",
+                        "EUR - Euro",
+                        "GBP - British Pound",
+                        "JPY - Japanese Yen",
+                        "CAD - Canadian Dollar",
+                        "AUD - Australian Dollar",
+                        "CHF - Swiss Franc",
+                        "CNY - Chinese Yuan",
+                        "INR - Indian Rupee",
+                        "MAD - Moroccan Dirham"
+                };
+
+                // Create an adapter for the spinner
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                        requireContext(), android.R.layout.simple_spinner_item, currencies);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                // Apply the adapter to the spinner
+                spinnerCurrency.setAdapter(adapter);
+            }
+        } catch (Exception e) {
+            Log.e("MapDebug", "Error initializing currency spinner: " + e.getMessage());
+        }
     }
 }

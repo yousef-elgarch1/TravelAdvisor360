@@ -19,6 +19,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.navigation.Navigation;
 
 import com.example.traveladvisor360.R;
+import com.example.traveladvisor360.models.TripPlanningData;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
@@ -30,6 +31,9 @@ public class PlanningOptionsDialog extends DialogFragment {
     private MaterialButton btnNext;
     private MaterialButton btnCancel;
     private TextView titleText;
+    private TripPlanningData tripData;
+    private RadioButton rbSolo;
+    private RadioButton rbGroup;
 
     @NonNull
     @Override
@@ -49,6 +53,9 @@ public class PlanningOptionsDialog extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Initialize TripPlanningData
+        tripData = TripPlanningData.getInstance();
+
         // Initialize views
         tripTypeGroup = view.findViewById(R.id.trip_type_group);
         soloCardView = view.findViewById(R.id.card_solo_trip);
@@ -56,6 +63,8 @@ public class PlanningOptionsDialog extends DialogFragment {
         btnNext = view.findViewById(R.id.btn_next);
         btnCancel = view.findViewById(R.id.btn_cancel);
         titleText = view.findViewById(R.id.dialog_title);
+        rbSolo = view.findViewById(R.id.rb_solo_trip);
+        rbGroup = view.findViewById(R.id.rb_group_trip);
 
         // Set the title with an animation
         titleText.setAlpha(0f);
@@ -63,44 +72,60 @@ public class PlanningOptionsDialog extends DialogFragment {
 
         // Set up card selection behavior
         soloCardView.setOnClickListener(v -> {
-            RadioButton rbSolo = view.findViewById(R.id.rb_solo_trip);
             rbSolo.setChecked(true);
+            rbGroup.setChecked(false);
             updateCardSelection();
+            btnNext.setEnabled(true);
         });
 
         groupCardView.setOnClickListener(v -> {
-            RadioButton rbGroup = view.findViewById(R.id.rb_group_trip);
             rbGroup.setChecked(true);
+            rbSolo.setChecked(false);
             updateCardSelection();
+            btnNext.setEnabled(true);
         });
 
-        tripTypeGroup.setOnCheckedChangeListener((group, checkedId) -> updateCardSelection());
+        // Set up radio button click listeners
+        rbSolo.setOnClickListener(v -> {
+            rbSolo.setChecked(true);
+            rbGroup.setChecked(false);
+            updateCardSelection();
+            btnNext.setEnabled(true);
+        });
+
+        rbGroup.setOnClickListener(v -> {
+            rbGroup.setChecked(true);
+            rbSolo.setChecked(false);
+            updateCardSelection();
+            btnNext.setEnabled(true);
+        });
 
         // Initialize card states
         updateCardSelection();
+        btnNext.setEnabled(false); // Initially disable next button
 
         btnNext.setOnClickListener(v -> {
-            int selectedId = tripTypeGroup.getCheckedRadioButtonId();
-            if (selectedId == R.id.rb_solo_trip) {
+            if (rbSolo.isChecked()) {
+                tripData.setTripType("solo");
                 navigateToDestinationSelectionSolo();
-            } else if (selectedId == R.id.rb_group_trip) {
+            } else if (rbGroup.isChecked()) {
+                tripData.setTripType("group");
                 navigateToDestinationSelectionGroup();
             } else {
-                navigateToDestinationSelectionSolo();            }
+                Toast.makeText(requireContext(), "Please select a trip type", Toast.LENGTH_SHORT).show();
+            }
         });
 
         btnCancel.setOnClickListener(v -> dismiss());
     }
 
     private void updateCardSelection() {
-        int selectedId = tripTypeGroup.getCheckedRadioButtonId();
-
-        if (selectedId == R.id.rb_solo_trip) {
+        if (rbSolo.isChecked()) {
             soloCardView.setStrokeColor(getResources().getColor(R.color.colorAccent));
             soloCardView.setStrokeWidth(4);
             groupCardView.setStrokeColor(Color.LTGRAY);
             groupCardView.setStrokeWidth(1);
-        } else if (selectedId == R.id.rb_group_trip) {
+        } else if (rbGroup.isChecked()) {
             groupCardView.setStrokeColor(getResources().getColor(R.color.colorAccent));
             groupCardView.setStrokeWidth(4);
             soloCardView.setStrokeColor(Color.LTGRAY);
@@ -115,22 +140,14 @@ public class PlanningOptionsDialog extends DialogFragment {
 
     private void navigateToDestinationSelectionSolo() {
         dismiss();
-        Bundle args = new Bundle();
-        args.putString("trip_type", "solo");
-
-        // Use the correct action ID that goes from home to destination
         Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-                .navigate(R.id.action_homeFragment_to_destinationBudgetFragment, args);
+                .navigate(R.id.action_homeFragment_to_destinationBudgetFragment);
     }
 
     private void navigateToDestinationSelectionGroup() {
         dismiss();
-        Bundle args = new Bundle();
-        args.putString("trip_type", "group");
-
-        // Use the correct action ID that goes from home to destination
         Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-                .navigate(R.id.action_homeFragment_to_destinationBudgetFragment, args);
+                .navigate(R.id.action_homeFragment_to_destinationBudgetFragment);
     }
 
     @Override

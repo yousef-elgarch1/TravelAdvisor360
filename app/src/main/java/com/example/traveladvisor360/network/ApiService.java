@@ -1,5 +1,7 @@
 package com.example.traveladvisor360.network;
 
+import android.app.DownloadManager;
+
 import com.example.traveladvisor360.models.Destination;
 import com.example.traveladvisor360.models.Experience;
 import com.example.traveladvisor360.models.Flight;
@@ -13,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -48,4 +51,12 @@ public interface ApiService {
 
     @POST("bookings/experience")
     Call<ApiResponse<Void>> bookExperience(@Body JsonObject bookingRequest);
+
+    /**
+     * Update user profile information
+     * @param user User object with updated information
+     * @return ApiResponse containing the updated User object
+     */
+    @PUT("users/profile")
+    Call<ApiResponse<User>> updateUser(@Body User user);
 }

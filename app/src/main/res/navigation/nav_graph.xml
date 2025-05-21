@@ -24,7 +24,7 @@
 
         <!-- Navigate to experiences list -->
         <action
-            android:id="@+id/action_experienc_list"
+            android:id="@+id/action_homeFragment_to_experiencesFragment"
             app:destination="@id/experiencesFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -33,8 +33,8 @@
 
         <!-- Navigate directly to experience details -->
         <action
-            android:id="@+id/action_experiencedetails"
-            app:destination="@id/experiencesFragment"
+            android:id="@+id/action_homeFragment_to_experienceDetailsFragment"
+            app:destination="@id/experienceDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -54,17 +54,12 @@
         <action
             android:id="@+id/action_homeFragment_to_searchResultsFragment"
             app:destination="@id/searchResultsFragment" />
+
+        <!-- Navigate to destination and budget planning -->
+        <action
+            android:id="@+id/action_homeFragment_to_destinationBudgetFragment"
+            app:destination="@id/destinationBudgetFragment" />
     </fragment>
-
-
-
-
-
-
-
-
-
-
 
     <!-- =================== DESTINATIONS FRAGMENT =================== -->
     <!-- Shows a list of travel destinations -->
@@ -84,25 +79,17 @@
     <!-- Shows a list of travel itineraries -->
     <fragment
         android:id="@+id/itinerariesFragment"
-        android:name="com.example.traveladvisor360.fragments.ItinerairiesFragment"
-        android:label="Itineraries"
-        tools:layout="@layout/activity_itineraries">
-
-        <!-- Navigate to details of a specific itinerary -->
+        android:name="com.example.traveladvisor360.fragments.ItinerariesFragment"
+        android:label="My Trips"
+        tools:layout="@layout/fragment_itineraries">
         <action
             android:id="@+id/action_itinerariesFragment_to_itineraryDetailsFragment"
-            app:destination="@id/itinerariesFragment" />
+            app:destination="@id/itineraryDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-
-
-
-
-
-
-
-
-
-
 
     <!-- =================== EXPERIENCES FRAGMENT =================== -->
     <!-- Shows a list of travel experiences -->
@@ -110,20 +97,17 @@
         android:id="@+id/experiencesFragment"
         android:name="com.example.traveladvisor360.fragments.ExperienceFragment"
         android:label="Experiences"
-        tools:layout="@layout/activity_experiences">
+        tools:layout="@layout/fragment_experiences">
 
         <!-- Navigate to details of a specific experience -->
         <action
             android:id="@+id/action_experiencesFragment_to_experienceDetailsFragment"
-            app:destination="@id/experiencesFragment" />
+            app:destination="@id/experienceDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-
-
-
-
-
-
-
 
     <!-- =================== PROFILE FRAGMENT =================== -->
     <!-- User profile screen with user details and preferences -->
@@ -132,15 +116,6 @@
         android:name="com.example.traveladvisor360.fragments.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/activity_profile" />
-
-
-
-
-
-
-
-
-
 
     <!-- =================== DESTINATION DETAILS FRAGMENT =================== -->
     <!-- Shows detailed information about a specific destination -->
@@ -161,16 +136,10 @@
             app:destination="@id/tripPlanningActivity" />
     </fragment>
 
-
-
-
-
-
-
     <!-- =================== EXPERIENCE DETAILS FRAGMENT =================== -->
     <!-- Shows detailed information about a specific experience -->
     <fragment
-        android:id="@+id/experienceDetails"
+        android:id="@+id/experienceDetailsFragment"
         android:name="com.example.traveladvisor360.fragments.ExperienceDetailsFragment"
         android:label="Experience Details"
         tools:layout="@layout/fragment_experience_details">
@@ -181,14 +150,19 @@
             app:argType="string" />
     </fragment>
 
-
-
-
-
-
-
     <!-- =================== ITINERARY DETAILS FRAGMENT =================== -->
     <!-- Shows detailed information about a specific itinerary -->
+    <fragment
+        android:id="@+id/itineraryDetailsFragment"
+        android:name="com.example.traveladvisor360.fragments.ItineraryDetailsFragment"
+        android:label="Itinerary Details"
+        tools:layout="@layout/fragment_itinerary_details">
+        <argument
+            android:name="itinerary_id"
+            app:argType="string" />
+    </fragment>
+
+    <!-- =================== CHEMIN FRAGMENT =================== -->
     <fragment
         android:id="@+id/cheminFragment"
         android:name="com.example.traveladvisor360.fragments.CheminFragment"
@@ -210,11 +184,6 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
-
-
-
-
-
     <!-- =================== SEARCH RESULTS FRAGMENT =================== -->
     <!-- Shows search results based on user query -->
     <fragment
@@ -228,13 +197,6 @@
             android:name="search_query"
             app:argType="string" />
     </fragment>
-
-
-
-
-
-
-
 
     <!-- =================== TRIP PLANNING ACTIVITY =================== -->
     <!-- Activity for planning a new trip -->
@@ -258,7 +220,7 @@
             app:nullable="true" />
     </activity>
 
-
+    <!-- =================== DESTINATION & BUDGET FRAGMENT =================== -->
     <fragment
         android:id="@+id/destinationBudgetFragment"
         android:name="com.example.traveladvisor360.fragments.DestinationBudgetFragment"
@@ -287,6 +249,7 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <!-- =================== COMPANIONS FRAGMENT =================== -->
     <fragment
         android:id="@+id/companionsFragment"
         android:name="com.example.traveladvisor360.fragments.CompanionsFragment"
@@ -301,32 +264,7 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
-    <fragment
-        android:id="@+id/activitiesFragment"
-        android:name="com.example.traveladvisor360.fragments.ActivitiesFragment"
-        android:label="Activities"
-        tools:layout="@layout/fragment_activities">
-        <action
-            android:id="@+id/action_activitiesFragment_to_flightsFragment"
-            app:destination="@id/flightsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
-
-
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.traveladvisor360.fragments.HomeFragment"
-        android:label="Home">
-        <action
-            android:id="@+id/action_homeFragment_to_destinationBudgetFragment"
-            app:destination="@id/destinationBudgetFragment" />
-    </fragment>
-
-
+    <!-- =================== FLIGHTS FRAGMENT =================== -->
     <fragment
         android:id="@+id/flightsFragment"
         android:name="com.example.traveladvisor360.fragments.FlightsFragment"
@@ -341,13 +279,29 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <!-- =================== HOTELS FRAGMENT =================== -->
     <fragment
         android:id="@+id/hotelsFragment"
         android:name="com.example.traveladvisor360.fragments.HotelsFragment"
         android:label="Hotel Selection"
         tools:layout="@layout/fragment_hotels">
         <action
-            android:id="@+id/action_hotelsFragment_to_tripSummaryFragment"
+            android:id="@+id/action_hotelsFragment_to_activitiesFragment"
+            app:destination="@id/activitiesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- =================== ACTIVITIES FRAGMENT =================== -->
+    <fragment
+        android:id="@+id/activitiesFragment"
+        android:name="com.example.traveladvisor360.fragments.ActivitiesFragment"
+        android:label="Activities Selection"
+        tools:layout="@layout/fragment_activities">
+        <action
+            android:id="@+id/action_activitiesFragment_to_tripSummaryFragment"
             app:destination="@id/tripSummaryFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -355,6 +309,7 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <!-- =================== TRIP SUMMARY FRAGMENT =================== -->
     <fragment
         android:id="@+id/tripSummaryFragment"
         android:name="com.example.traveladvisor360.fragments.TripSummaryFragment"
@@ -370,10 +325,14 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_tripSummaryFragment_to_itinerariesFragment"
+            app:destination="@id/itinerariesFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
-
-    <!-- Inside the soloTripPlanningFragment node -->
+    <!-- Trip Planning Fragment Actions -->
     <action
         android:id="@+id/action_soloTripPlanningFragment_to_activitiesFragment"
         app:destination="@id/activitiesFragment"
@@ -382,7 +341,6 @@
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
 
-    <!-- Inside the groupTripPlanningFragment node -->
     <action
         android:id="@+id/action_groupTripPlanningFragment_to_activitiesFragment"
         app:destination="@id/activitiesFragment"

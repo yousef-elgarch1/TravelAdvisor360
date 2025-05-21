@@ -13,7 +13,8 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="65dp"/>
 
     <TextView
         android:id="@+id/text_destination"

@@ -105,6 +105,8 @@
     <string name="concierge_service">Concierge service</string>
     <string name="free_wifi">Free WiFi</string>
     <string name="more">+%1$d more</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="save_profile">Save Profile</string>
 
     <!-- Chatbot -->
     <string name="guidos_assistant">Guidos - Your Travel Assistant</string>

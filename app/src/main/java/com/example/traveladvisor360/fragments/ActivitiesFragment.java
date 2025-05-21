@@ -1,168 +1,153 @@
 package com.example.traveladvisor360.fragments;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.traveladvisor360.R;
-import com.example.traveladvisor360.adapters.ActivityAdapter;
-import com.example.traveladvisor360.models.TripActivity;
+import com.example.traveladvisor360.models.GeoapifyResponse;
 import com.example.traveladvisor360.models.TripPlanningData;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import retrofit2.*;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ActivitiesFragment extends Fragment {
-
-    private RecyclerView activitiesRecyclerView;
-    private Button nextButton;
-    private Button backButton;
-    private TextView destinationTextView;
-
-    private TripPlanningData tripData;
-    private ActivityAdapter adapter;
-    private List<TripActivity> availableActivities = new ArrayList<>();
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        tripData = TripPlanningData.getInstance();
-    }
+    private EditText editName, editLocation, editDate, editTime;
+    private Button btnAdd, btnNext;
+    private ListView listActivities;
+    private ArrayAdapter<String> activitiesAdapter;
+    private List<String> activitiesList = new ArrayList<>();
+    private ArrayAdapter<String> locationAdapter;
+    private List<GeoapifyResponse.Feature> locationFeatures = new ArrayList<>();
+    private com.example.traveladvisor360.network.GeoapifyService geoapifyService;
+    private static final String GEOAPIFY_BASE_URL = "https://api.geoapify.com/";
+    private static final String GEOAPIFY_API_KEY = "b77658ed5cce424b9226636d47a85ea5";
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_activities, container, false);
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_activities, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        // Find views
+        editName = view.findViewById(R.id.edit_activity_name);
+        editLocation = view.findViewById(R.id.edit_location);
+        editDate = view.findViewById(R.id.edit_activity_date);
+        editTime = view.findViewById(R.id.edit_activity_time);
+        btnAdd = view.findViewById(R.id.btn_add_activity);
+        btnNext = view.findViewById(R.id.btn_next);
+        listActivities = view.findViewById(R.id.list_activities);
 
-        // Initialize views
-        activitiesRecyclerView = view.findViewById(R.id.recycler_activities);
-        nextButton = view.findViewById(R.id.btn_next);
-        backButton = view.findViewById(R.id.btn_back);
-        destinationTextView = view.findViewById(R.id.text_destination);
+        // List setup
+        activitiesAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, activitiesList);
+        listActivities.setAdapter(activitiesAdapter);
 
-        // Update destination text
-        destinationTextView.setText(String.format("Activities in %s", tripData.getDestination()));
+        // Setup location autocomplete
+        if (editLocation instanceof AutoCompleteTextView) {
+            locationAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, new ArrayList<>());
+            ((AutoCompleteTextView) editLocation).setAdapter(locationAdapter);
 
-        // Load available activities
-        loadActivitiesForDestination();
+            Retrofit geoapifyRetrofit = new Retrofit.Builder()
+                    .baseUrl(GEOAPIFY_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            geoapifyService = geoapifyRetrofit.create(com.example.traveladvisor360.network.GeoapifyService.class);
 
-        // Set up RecyclerView
-        setupActivitiesRecyclerView();
+            editLocation.addTextChangedListener(new TextWatcher() {
+                @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+                @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.length() >= 2) fetchPlaceSuggestions(s.toString());
+                }
+                @Override public void afterTextChanged(Editable s) { }
+            });
 
-        // Set up click listeners
-        nextButton.setOnClickListener(v -> {
-            if (validateActivities()) {
-                saveSelectedActivities();
-                navigateToFlightsSelection();
+            ((AutoCompleteTextView) editLocation).setOnItemClickListener((parent, v1, position, id) -> {
+                if (position < locationFeatures.size()) {
+                    GeoapifyResponse.Feature feature = locationFeatures.get(position);
+                    String name = feature.properties.name;
+                    String address = feature.properties.formatted;
+                    String display = !TextUtils.isEmpty(name) ? name : address;
+                    editLocation.setText(display);
+                }
+            });
+        }
+
+        // Date and time pickers
+        editDate.setOnClickListener(v -> showDatePicker());
+        editTime.setOnClickListener(v -> showTimePicker());
+
+        // Add Activity button
+        btnAdd.setOnClickListener(v -> {
+            String name = editName.getText().toString().trim();
+            String location = editLocation.getText().toString().trim();
+            String date = editDate.getText().toString().trim();
+            String time = editTime.getText().toString().trim();
+            if (name.isEmpty() || location.isEmpty() || date.isEmpty() || time.isEmpty()) {
+                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
             }
+            String summary = name + " at " + location + " on " + date + " " + time;
+            activitiesList.add(summary);
+            activitiesAdapter.notifyDataSetChanged();
+            TripPlanningData.getInstance().getSelectedActivities().add(summary);
+
+            // Reset fields
+            editName.setText("");
+            editLocation.setText("");
+            editDate.setText("");
+            editTime.setText("");
         });
 
-        backButton.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigateUp();
+        // Next button
+        btnNext.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_activitiesFragment_to_tripSummaryFragment);
         });
+
+        return view;
     }
 
-    private void loadActivitiesForDestination() {
-        // In a real app, this would fetch activities from an API
-        // For this example, we'll create mock data based on the destination
-        availableActivities.clear();
-
-        String destination = tripData.getDestination().toLowerCase();
-
-        // Add generic activities
-        availableActivities.add(new TripActivity("City Tour", R.drawable.ic_city_tour, false));
-        availableActivities.add(new TripActivity("Local Cuisine", R.drawable.ic_restaurant, false));
-        availableActivities.add(new TripActivity("Cultural Experience", R.drawable.ic_museum, false));
-        availableActivities.add(new TripActivity("Shopping", R.drawable.ic_shopping, false));
-
-        // Add destination-specific activities
-        switch (destination) {
-            case "paris":
-                availableActivities.add(new TripActivity("Eiffel Tower", R.drawable.ic_landmark, false));
-                availableActivities.add(new TripActivity("Louvre Museum", R.drawable.ic_museum, false));
-                availableActivities.add(new TripActivity("Seine River Cruise", R.drawable.ic_boat, false));
-                availableActivities.add(new TripActivity("Montmartre Tour", R.drawable.ic_landmark, false));
-                break;
-            case "tokyo":
-                availableActivities.add(new TripActivity("Tokyo Tower", R.drawable.ic_landmark, false));
-                availableActivities.add(new TripActivity("Shibuya Crossing", R.drawable.ic_city, false));
-                availableActivities.add(new TripActivity("Meiji Shrine", R.drawable.ic_temple, false));
-                availableActivities.add(new TripActivity("Anime Tour", R.drawable.ic_entertainment, false));
-                break;
-            case "new york":
-                availableActivities.add(new TripActivity("Statue of Liberty", R.drawable.ic_landmark, false));
-                availableActivities.add(new TripActivity("Times Square", R.drawable.ic_city, false));
-                availableActivities.add(new TripActivity("Central Park", R.drawable.ic_park, false));
-                availableActivities.add(new TripActivity("Broadway Show", R.drawable.ic_entertainment, false));
-                break;
-            default:
-                availableActivities.add(new TripActivity("Local Landmark", R.drawable.ic_landmark, false));
-                availableActivities.add(new TripActivity("Nature Tour", R.drawable.ic_nature, false));
-                availableActivities.add(new TripActivity("Local Entertainment", R.drawable.ic_entertainment, false));
-        }
-
-        // Mark previously selected activities
-        for (TripActivity activity : availableActivities) {
-            if (tripData.getSelectedActivities().contains(activity.getName())) {
-                activity.setSelected(true);
-            }
-        }
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+            requireContext(),
+            (view, year, month, dayOfMonth) -> {
+                String date = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year);
+                editDate.setText(date);
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
     }
 
-    private void setupActivitiesRecyclerView() {
-        adapter = new ActivityAdapter(availableActivities);
-        activitiesRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        activitiesRecyclerView.setAdapter(adapter);
+    private void showTimePicker() {
+        Calendar calendar = Calendar.getInstance();
+        TimePickerDialog timePickerDialog = new TimePickerDialog(
+            requireContext(),
+            (view, hourOfDay, minute) -> {
+                String time = String.format("%02d:%02d", hourOfDay, minute);
+                editTime.setText(time);
+            },
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE),
+            true
+        );
+        timePickerDialog.show();
     }
 
-    private boolean validateActivities() {
-        // Check if at least one activity is selected
-        boolean anySelected = false;
-        for (TripActivity activity : availableActivities) {
-            if (activity.isSelected()) {
-                anySelected = true;
-                break;
-            }
-        }
-
-        if (!anySelected) {
-            Snackbar.make(requireView(), "Please select at least one activity", Snackbar.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
-    }
-
-    private void saveSelectedActivities() {
-        // Clear previous selections
-        tripData.getSelectedActivities().clear();
-
-        // Add current selections
-        for (TripActivity activity : availableActivities) {
-            if (activity.isSelected()) {
-                tripData.getSelectedActivities().add(activity.getName());
-            }
-        }
-    }
-
-    private void navigateToFlightsSelection() {
-        Navigation.findNavController(requireView())
-                .navigate(R.id.action_activitiesFragment_to_flightsFragment);
+    private void fetchPlaceSuggestions(String query) {
+        // Implement place suggestions fetching using Geoapify API
+        // This is a placeholder for the actual implementation
     }
 }

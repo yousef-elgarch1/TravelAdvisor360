@@ -47,7 +47,7 @@ public class DestinationBudgetFragment extends Fragment {
 
     private com.example.traveladvisor360.network.GeoapifyService geoapifyService;
     private static final String GEOAPIFY_BASE_URL = "https://api.geoapify.com/";
-    private static final String GEOAPIFY_API_KEY = "3a2057294ce64a67a85b49d2016412e1";
+    private static final String GEOAPIFY_API_KEY = "b77658ed5cce424b9226636d47a85ea5";
     private AutoCompleteTextView editDeparture;
     private ArrayAdapter<String> departureAdapter;
 
