@@ -112,7 +112,7 @@ com.example.traveladvisor360/
 ├── services/             # Background services
 └── utils/                # Helper classes
 ```
-
+  <img src="https://github.com/yousef-elgarch1/TravelAdvisor360/blob/master/images/Screenshot%202025-09-07%20153716.png" alt="Technogies" width="600"/>
 ### Key Components:
 
 #### Activities
@@ -166,23 +166,23 @@ API integration with travel services:
 <div align="center">
   <table>
     <tr>
-      <td><img src="/api/placeholder/200/400" alt="Splash Screen" width="200"/></td>
-      <td><img src="/api/placeholder/200/400" alt="Home Screen" width="200"/></td>
-      <td><img src="/api/placeholder/200/400" alt="Destination Details" width="200"/></td>
+      <td><img src="https://github.com/yousef-elgarch1/TravelAdvisor360/blob/master/images/Screenshot%202025-09-07%20153708.png" alt="Login Screen" width="200"/></td>
+      <td><img src="[/api/placeholder/200/400](https://github.com/yousef-elgarch1/TravelAdvisor360/blob/master/images/Screenshot%202025-09-07%20153700.png)" alt="Home Screens" width="200"/></td>
+      <td><img src="https://github.com/yousef-elgarch1/TravelAdvisor360/blob/master/images/Screenshot%202025-09-07%20153623.png" alt="UserDetails" width="200"/></td>
     </tr>
     <tr>
       <td align="center"><strong>Welcome Screen</strong></td>
       <td align="center"><strong>Home Dashboard</strong></td>
-      <td align="center"><strong>Destination Details</strong></td>
+      <td align="center"><strong>User Details</strong></td>
     </tr>
     <tr>
-      <td><img src="/api/placeholder/200/400" alt="Itinerary Planning" width="200"/></td>
-      <td><img src="/api/placeholder/200/400" alt="Flight Booking" width="200"/></td>
-      <td><img src="/api/placeholder/200/400" alt="AI Recommendations" width="200"/></td>
+      <td><img src="https://github.com/yousef-elgarch1/TravelAdvisor360/blob/master/images/Screenshot%202025-09-07%20153637.png" alt="Itinerary Planning" width="200"/></td>
+      <td><img src="https://github.com/yousef-elgarch1/TravelAdvisor360/blob/master/images/Screenshot%202025-09-07%20153716.png" alt="Technolgies Used" width="200"/></td>
+      <td><img src="https://github.com/yousef-elgarch1/TravelAdvisor360/blob/master/images/Screenshot%202025-09-07%20153612.png" alt="AI Recommendations" width="200"/></td>
     </tr>
     <tr>
       <td align="center"><strong>Itinerary Planning</strong></td>
-      <td align="center"><strong>Flight Booking</strong></td>
+      <td align="center"><strong>Technologies Used</strong></td>
       <td align="center"><strong>AI Recommendations</strong></td>
     </tr>
   </table>
