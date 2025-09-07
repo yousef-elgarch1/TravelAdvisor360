@@ -311,11 +311,11 @@ Travel Advisor360 leverages several external APIs to provide comprehensive trave
 <div align="center">
   <table>
     <tr>
-      <td align="center"><img src="/api/placeholder/100/100" alt="Youssef ELGARCH" width="100" style="border-radius:50%"/><br/><strong>Youssef ELGARCH</strong><br/>
-      <td align="center"><img src="/api/placeholder/100/100" alt="Hajar ELKASIRI" width="100" style="border-radius:50%"/><br/><strong>Hajar ELKASIRI</strong><br/>
+      <td align="center"><img src="https://avatars.githubusercontent.com/u/146676271?v=4" alt="Youssef ELGARCH" width="100" style="border-radius:50%"/><br/><strong>Youssef ELGARCH</strong><br/>
+      <td align="center"><img src="https://media.licdn.com/dms/image/v2/D4E03AQE-6UajLV1hMA/profile-displayphoto-scale_400_400/B4EZhcype.HIAg-/0/1753903439714?e=1759968000&v=beta&t=_CCBYnq2T_J5yUkfep4jLCSMjGOV3Y6mQy8SCklwN6U" alt="Hajar ELKASIRI" width="100" style="border-radius:50%"/><br/><strong>Hajar ELKASIRI</strong><br/>
     </tr>
     <tr>
-      <td align="center"><img src="/api/placeholder/100/100" alt="Nisrine IBNOU-KADY" width="100" style="border-radius:50%"/><br/><strong>Nisrine IBNOU-KADY</strong><br/>
+      <td align="center"><img src="https://media.licdn.com/dms/image/v2/D4E03AQGgo4PLeDDxtQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1729197093114?e=1759968000&v=beta&t=VSs9U4zOZ8FYOaH8hZPGBxRV8iLbkPImOfgrR0P_dtI" alt="Nisrine IBNOU-KADY" width="100" style="border-radius:50%"/><br/><strong>Nisrine IBNOU-KADY</strong><br/>
       <td align="center"><img src="/api/placeholder/100/100" alt="Hiba EL OUERKHAOUI" width="100" style="border-radius:50%"/><br/><strong>Hiba EL OUERKHAOUI</strong><br/>
     </tr>
   </table>
